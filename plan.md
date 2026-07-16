@@ -61,7 +61,7 @@ Tailwind v4 auto-detects sources, and its first build scanned `plan.md` and emit
 One page, sticky header with anchor links, sections in this order:
 
 1. **Header / nav** — the heart mark + the team name in type, links: Research · Team · Publications · Partners · Contact.
-2. **Hero** — eyebrow "Inserm U942 · MASCOT · Team 3", then the team name **"Digital twins for perioperative medicine"** as the main heading (`<h1>`, set as type — no logo image), a one-line positioning sentence, the `digital-twin.png` schematic as the hero visual, and a row of affiliation logos (MASCOT, AP-HP, Université Paris Cité, Inserm) directly beneath.
+2. **Hero** — eyebrow "Inserm U942 · MASCOT · Team 3", then the team name **"Digital twins for perioperative medicine"** as the main heading (`<h1>`, set as type — no logo image), a one-line positioning sentence, the waveform panel as the hero visual (**revised** — this said `digital-twin.png`; see *Design direction* below), and a row of affiliation logos (MASCOT, AP-HP, Université Paris Cité, Inserm) directly beneath.
 3. **The challenge** (`#challenge`) — short prose from the OCR background: >300M anesthesias/year worldwide, 15–25% postoperative complications, postoperative death as a leading cause of death (Nepogodiev, *Lancet* 2019). Three stat cards. Frame the question: *how to improve monitoring to mitigate postoperative complications?*
 4. **Our approach** (`#approach`) — the "unused nexus of data" loop: intraoperative data → data management, biomarker design, organ-crosstalk modelling, digital twin → augmented monitoring → public-health tool.
 5. **Research axes** (`#research`) — the core section, two subsections:
@@ -69,7 +69,7 @@ One page, sticky header with anchor links, sections in this order:
    - *Foundations (2017–2022)*: A1 Data infrastructure (46k patients ECG/SpO2/BP, 8.6k EEG…); A2 Heart (GALA afterload biomarker, non-invasive PWV, cardiac digital twin — patents EP3142549A1, EP22305129.3); A3 Vessel (PlethoMAP BP reconstruction, WO2019122406A1, 2021 Innovation Award; norepinephrine PK/PD); A4 Brain (TAD alpha-band EEG biomarker of brain fragility; alpha-PF and impaired cerebral perfusion).
    Card grid, each card: axis label, goal, one-line achieved/outcome.
 6. **Team** (`#team`) — leads first (Etienne Gayat, Fabrice Vallée, Jérôme Cartailler), then grouped rosters from the OCR: Medical researchers, Technology researchers & data scientists, Clinical research associates, Ethical advisors. Name + role text, no photos (none available). A short note on the medical/technical duo model and the schools people come from.
-7. **Publications** (`#publications`) — heading, "latest from PubMed", list rendered client-side from `data/publications.json`, each entry: title (links to PubMed), authors, journal, date. Static `<noscript>` fallback link to the PubMed search.
+7. **Publications** (`#publications`) — heading, "latest from PubMed", list rendered client-side from `data/publications.json`, each entry: journal + date eyebrow, title (links to PubMed), authors (long lists elided to first three + last + a count), DOI. Eight shown, the rest behind a "show all" button. Static `<noscript>` fallback link to the PubMed search.
 8. **Partners & funding** (`#partners`) — the MASCOT wordmark leads here as the parent unit (labelled as such, set apart from the collaborators), then the logo row for the other marks we have (AP-HP, Université Paris Cité, Inserm), then text entries for the rest: Inria (MIND, M3DISIM), Philips, APHP Entrepôt de Données de Santé, CentraleSupélec/ENS. Grants line (~1.4 M€ as of 2023: AI Chair, APHP foundation, Bernoulli fellowship, FHU PROMICE, Radiometer, Booster APHP, Philips).
 9. **Contact** (`#contact`) — team email **digitaltwins@letemple.org** as the primary `mailto:` link, Lariboisière / AP-HP Nord address, with the `lariboisiere.jpg` engraving as a small illustration beside it. No form (no server). The address itself is still a placeholder — see the flags below.
 10. **Footer** — team name, "Team 3 of MASCOT (Inserm U942)", the affiliations, year, link to the PubMed feed.
@@ -89,12 +89,15 @@ Design direction: clinical and restrained. The palette is inherited from the par
 **Why not fetch in the browser:** `pubmed.ncbi.nlm.nih.gov` serves no `Access-Control-Allow-Origin` header, so a direct `fetch()` from the page fails. The build-time fetch avoids both that and a third-party proxy dependency.
 
 `scripts/fetch_pubmed.py` — stdlib only (`urllib`, `xml.etree`, `json`):
-- Fetch the feed URL from `notes.txt`:
-  `https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=15`
-  (drop the `utm_campaign` / `fc` tracking params; keep `limit`, raise to 50).
+- Fetch the feed URL from `notes.txt`, with the `utm_campaign` / `fc` tracking params dropped and `limit` raised to 50:
+  `https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50`
 - Parse RSS 2.0 + the `dc:` and `content:` namespaces PubMed uses: `title`, `link`, `dc:creator` (repeated, one per author), `dc:date`, `dc:identifier` (`pmid:...`, `doi:...`), and the journal/citation string in `content:encoded`.
-- Emit `data/publications.json`: `{ "updated": "<ISO date>", "items": [{title, url, authors[], journal, date, doi, pmid}] }`.
+- Emit `data/publications.json`: `{ "updated": "<ISO date>", "items": [{title, url, authors[], journal, published, date, doi, pmid}] }`.
 - Exit non-zero on fetch/parse failure so the workflow surfaces the problem instead of committing an empty list. Never overwrite a good file with zero items.
+
+Two details that only showed up against the live feed, both load-bearing:
+- **Each item's `link` carries tracking params too**, including an `ff` fetch timestamp that changes on *every request*. Left alone it defeats the "commit only if changed" check and produces a fresh commit every night forever. Item URLs are canonicalised to `https://pubmed.ncbi.nlm.nih.gov/<pmid>/`.
+- **The citation string and `dc:date` disagree** on anything published ahead of print (one real entry: PubMed says `2026 Apr`, `dc:date` says `2025-10-02`). Printing both side by side reads as a contradiction, so `journal_of()` splits the citation into `journal` (the name) and `published` (PubMed's own date), and the page shows `published`. `date` is still emitted — it's what the feed sorts by — but it isn't displayed.
 
 `.github/workflows/publications.yml` — `schedule: cron` nightly + `workflow_dispatch`; runs the script; commits `data/publications.json` only if changed. Needs `permissions: contents: write`.
 
@@ -103,7 +106,7 @@ Design direction: clinical and restrained. The palette is inherited from the par
 ## Build & deploy
 
 - `package.json` scripts: `"build": "tailwindcss -i src/input.css -o assets/css/site.css --minify"`, `"dev": "... --watch"`.
-- `.github/workflows/deploy.yml`: on push to `main` — checkout, setup-node, `npm ci`, `npm run build`, upload artifact, `actions/deploy-pages`. Uses the Pages "GitHub Actions" source rather than branch-serving.
+- `.github/workflows/deploy.yml`: on push to `main` — checkout, setup-node, `npm ci`, `npm run build`, stage `_site/`, upload artifact, `actions/deploy-pages`. Uses the Pages "GitHub Actions" source rather than branch-serving. It rebuilds the CSS rather than trusting the committed copy, so a stale commit of `site.css` can't ship. The **staging step is not cosmetic**: uploading the workspace wholesale would publish `node_modules`, the Tailwind source, the fetch script, and `plan.md` — this document, internal flags and all — to a public URL. Only `index.html`, `.nojekyll`, `assets/` and `data/` are copied in.
 - `assets/css/site.css` is also committed so the site is viewable straight from a `file://` open and from a branch-served Pages setup as a fallback.
 - `.nojekyll` so nothing is filtered by Jekyll.
 - Images copied from `resources/logos_banners/` into `assets/img/` with descriptive names. `resources/` itself stays untracked via `.gitignore` (it also holds the 900 KB OCR dump and the MIND HTML mirror, neither of which belongs in the repo).
@@ -112,11 +115,20 @@ Design direction: clinical and restrained. The palette is inherited from the par
 
 ## Verification
 
-1. `npm run build` — confirm `assets/css/site.css` is produced and non-trivial in size.
-2. `python3 scripts/fetch_pubmed.py` — confirm `data/publications.json` contains real, recent entries from the team's feed; eyeball a couple of titles against the PubMed page.
-3. Serve locally with `python3 -m http.server` and open the page: check the publications list renders from the JSON, anchor nav jumps to each section, and the layout holds at 375px / 768px / 1440px widths.
-4. Check the JS failure path by temporarily renaming `data/publications.json` — the fallback link should appear instead of a blank section.
-5. After the repo is pushed: trigger `publications.yml` via `workflow_dispatch` and confirm the deploy workflow publishes a working Pages URL.
+Steps 1–4 ran against the built site (Playwright, Chromium) and pass. Step 5 needs the remote.
+
+1. **Pass.** `npm run build` produces `assets/css/site.css` at ~25 KB, and rebuilding a clean tree reproduces it byte-identically.
+2. **Pass.** `python3 scripts/fetch_pubmed.py` pulls 35 real entries, most recent *Eur J Anaesthesiol* 2026 Jun 11, with team members in the author lists. Re-running is a no-op ("no change: 35 publications") — which is the point of canonicalising the URLs.
+3. **Pass.** Served locally: 35 publications render from the JSON, fonts resolve, no console or page errors, and `scrollWidth == innerWidth` at 375 / 768 / 1024 / 1440. The nav's fade mask only bites below `sm`; at 768 all five links fit.
+4. **Pass.** Both failure paths, driven rather than reasoned about:
+   - `data/publications.json` blocked at the network layer → "The publication list could not be loaded." plus the PubMed link, not a blank section.
+   - `prefers-reduced-motion: reduce` → the canvas paints a settled frame (verified non-blank), the agreement readout does not move, no rAF loop.
+5. **Not yet — needs the remote.** Trigger `publications.yml` via `workflow_dispatch` and confirm `deploy.yml` publishes a working Pages URL. Also worth confirming the first Pages deploy after setting the source to "GitHub Actions".
+
+Also checked, beyond the original list:
+- **Contrast.** Every foreground/background pair in the token set clears 4.5:1, including the 11px mono labels on `--color-panel`. `--color-ink-mute` was darkened from `#78707f` to `#726a79` to get there — it passed on white but not on the panel.
+- **Structure.** One `<h1>`, no image without `alt`, no link without an accessible name, `lang="en"`, first tab stop is "Skip to content", focus is visible.
+- **The Pages artifact.** Staged `_site/` served standalone: zero 404s, and `node_modules` / `plan.md` / `src` / `scripts` / `package.json` / `resources` all confirmed absent.
 
 ## Notes / things I'll flag rather than invent
 
@@ -125,9 +137,10 @@ Design direction: clinical and restrained. The palette is inherited from the par
 - The hero waveform is a **schematic**, generated from a pulse model — it is not patient data, and the panel and the code comment both say so. The "agreement" readout is the real RMS agreement between the two traces on screen, so it's honest about the animation, but it is not a claim about any real twin's accuracy. The deck's monitor prototype shows a "DIGITAL TWIN ACCURACY INDEX 97%"; I deliberately did **not** put that number on the site, since a 2023 screenshot isn't a live metric.
 - The B1 card lists the platform components by name (Kafka, TimescaleDB, Grafana, FastAPI, Mirth, Philips Data Warehouse Connect) straight from the deck. If any of that stack has changed since 2023, or if naming the vendor pieces publicly is awkward, say so and I'll cut the row.
 - The OCR spells the third lead inconsistently ("Cartailleur"/"Cartailer" in the slides). **Jérôme Cartailler** is the correct spelling — confirmed by the user, use it everywhere.
-- The member roster is from 2023 and will need your review before publishing — people leave teams.
+- The member roster is from 2023 and will need your review before publishing — people leave teams. It is now 21 named people on a public page, so this is the flag I'd action first.
+- **The prose is mine and needs your sign-off.** The facts, figures, axis goals and "Achieved" lines are all traceable to the deck, but the connective writing is editorial voice I wrote, and some of it makes claims the source only implies. Specifically: *"Surgery is safe enough that we stopped counting what it costs"* (a rhetorical framing, not a finding); *"in signals nobody is modelling"*; *"It records it to a screen that forgets it a second later"*; *"Every project has a doctor and a mathematician on it"* and *"Neither half writes a paper the other could not defend"* — both extrapolated from the deck's "Medical and Technology research duo" icon, which does not actually say the pairing is universal or that strict. If the duo model is aspirational rather than literal, that heading overstates it and should soften. Same for *"General anaesthesia is a cardiovascular and cerebral stress test that millions of people already take"* under B3 — true to the intent of "making anaesthesia an instrument of public health", but it's my sentence, not yours.
 - "Digital twins for perioperative medicine" is long for a sticky header. Rather than truncate the name to an ellipsis, the header shows the full name on two lines at `lg` and up, and falls back to the heart mark plus `U942 · T3` below that — an abbreviation the deck itself uses, so nothing is invented. If the team goes by something shorter in practice — or has a logo of its own that isn't in `resources/` — that solves it properly and I'll swap it in.
 - Team email is **digitaltwins@letemple.org** (confirmed by the user). No street address appears in the source material, so the postal address stays a clearly-marked placeholder for you to fill.
-- `hospital_gif.jpg` is 250×130px — fine as a small inline illustration, but it will look soft if stretched. If you want it as a hero or section banner, send a higher-resolution copy. I'm also inferring it's Lariboisière; tell me if it's another site and I'll relabel the alt text.
-- Inria and Philips have no logo files; they'll be text entries in the partner list. Drop the marks in if you want them rendered as logos.
+- `hospital_gif.jpg` is 250×130px — so it's used at 150px wide beside the contact block, and hidden below `sm` rather than stretched. If you want it as a hero or section banner, send a higher-resolution copy. I'm also inferring it's Lariboisière; tell me if it's another site and I'll relabel the alt text.
+- Inria and Philips have no logo files, so they are text entries in the partner list. Drop the marks in if you want them rendered as logos.
 - The partner logos are institutional trademarks with usage charters. Placing them signals affiliation, which is accurate here, but you own that call — worth a glance before the site goes public.
