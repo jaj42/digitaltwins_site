@@ -10,7 +10,7 @@ Constraints set by the user:
 - Static only — JavaScript is fine, no server-side code.
 - Tailwind for CSS, compiled by the Tailwind CLI in CI (not the Play CDN).
 - Single long scrolling page with anchor navigation.
-- Branding leads with the team name set as type. The MASCOT wordmark is parent-unit branding and sits in the affiliation/partner row, not the hero. (Confirmed by the user.)
+- Branding leads with the team name set as type. The MASCOT wordmark is parent-unit branding and sits in the affiliation/partner row, not the hero. (Confirmed by the user — **later reversed**: the wordmark now sits in the hero, beside the `<h1>`, as a "Part of" lockup. See *Revised at build time*.)
 - Publications come from the team's PubMed RSS feed.
 - `resources/` is source material and must **not** be committed.
 
@@ -60,7 +60,7 @@ Tailwind v4 auto-detects sources, and its first build scanned `plan.md` and emit
 One page, sticky header with anchor links, sections in this order:
 
 1. **Header / nav** — the heart mark + the team name in type, links: Research · Team · Publications · Partners · Contact.
-2. **Hero** — eyebrow "Inserm U942 · MASCOT · Team 3", then the team name **"Digital twins for perioperative medicine"** as the main heading (`<h1>`, set as type — no logo image), a one-line positioning sentence, `digital-twin.png` as the hero visual, and a row of affiliation logos (MASCOT, AP-HP, Université Paris Cité, Inserm) directly beneath.
+2. **Hero** — eyebrow "Inserm U942 · Team 3", then the team name **"Digital twins for perioperative medicine"** as the main heading (`<h1>`, set as type — no logo of the team's own), with the MASCOT wordmark beside it as a "Part of" lockup, a one-line positioning sentence, `digital-twin.png` as the hero visual, and a row of affiliation logos (AP-HP, Université Paris Cité, Inserm) directly beneath.
 3. **The challenge** (`#challenge`) — short prose from the OCR background: >300M anesthesias/year worldwide, 15–25% postoperative complications, postoperative death as a leading cause of death (Nepogodiev, *Lancet* 2019). Three stat cards. Frame the question: *how to improve monitoring to mitigate postoperative complications?*
 4. **Our approach** (`#approach`) — the "unused nexus of data" loop: intraoperative data → data management, biomarker design, organ-crosstalk modelling, digital twin → augmented monitoring → public-health tool.
 5. **Research axes** (`#research`) — the core section, two subsections:
@@ -86,6 +86,10 @@ Design direction: clinical and restrained. The palette is inherited from the par
 
   The objection that motivated the canvas still stands and is now just a known cost: the image is a 3370×827 slide extract with 8px labels. It sits in an `overflow-x-auto` panel at `min-w-[52rem]`, so at 375px the hero shows the diagram's left third and the reader scrolls sideways inside the panel. Scaling it to fit instead would put the labels at ~4px. The real fix is a redrawn or re-exported figure at mobile-legible label sizes.
 - *The type.* "System font stack; no external fonts" was a planning assumption, not a constraint you set — and it sits badly with "branding leads with the team name set as type", which makes the typeface the identity. The site now self-hosts **Source Serif 4** (display + body) and **IBM Plex Mono** (labels, data, nav): the journal register and the instrument register, i.e. the medical/technical duo, in type. Self-hosted woff2 in `assets/fonts/` keeps it dependency-free in the sense that mattered — no CDN, no network dependency, and no request to Google from a visitor's browser. ~150 KB over the wire for the latin subset.
+
+- *MASCOT in the hero.* The user asked for "part of MASCOT" with the wordmark **to the right of the `<h1>`**, which reverses the constraint above. The hero now carries a lockup: a mono "Part of" label over `mascot-logo.png`, in a column beside the headline, stacking under it below `sm`. Spacing alone separates the two columns — a hairline rule between them was tried and cut as ugly (user's call). The word "MASCOT" is not set as text next to it — the wordmark *is* that word, and the `alt` text supplies it to screen readers, so the lockup reads "Part of MASCOT — Cardiovascular Markers…" without printing the name twice.
+
+  Two knock-on edits, both to stop the hero saying "MASCOT" three times inside one screen: the eyebrow lost its middle term (now "Inserm U942 / Team 3"), and the wordmark came out of the Affiliations row immediately below, which now runs AP-HP / Université Paris Cité / Inserm — the three named affiliations, with the parent unit promoted out of the list. The Partners section further down still leads with the wordmark as the parent unit; that one is a screen away and stays.
 
 ## Publications pipeline
 
