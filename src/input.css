@@ -1,0 +1,28 @@
+/* source(none) disables auto-detection, which would otherwise scan plan.md and
+   any other prose in the repo for class names. */
+@import "tailwindcss" source(none);
+@source "../index.html";
+@source "../assets/js";
+
+/* Brand tokens, sampled from the logo of the parent unit (MASCOT / Inserm U942):
+   the purple wordmark and the red heart mark. The team has no palette of its own,
+   so it inherits the unit's. Available as bg-brand-purple, text-brand-red, etc. */
+@theme {
+  --color-brand-purple: #93348a;
+  --color-brand-purple-dark: #6d2566;
+  --color-brand-purple-light: #f4e9f3;
+  --color-brand-red: #e03127;
+  --color-brand-red-dark: #b0231b;
+  --color-brand-red-light: #fdeceb;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Anchor links land below the sticky header instead of under it. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+}

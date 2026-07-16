@@ -1,14 +1,16 @@
-# MASCOT team website — static site on GitHub Pages
+# Digital twins for perioperative medicine — team website on GitHub Pages
 
 ## Context
 
-The research team **MASCOT** (*Cardiovascular MArkers in Stressed COndiTions*) — Inserm Unit U942, Team 3, "Digital twins for perioperative medicine" (AP-HP / Université Paris Cité / Inserm) — has no web presence. This project creates one from scratch: a static site that presents the team, its research axes, its people, and its current publications, hosted on GitHub Pages.
+**Digital twins for perioperative medicine** is **Team 3** of Inserm Unit U942 — **MASCOT** (*Cardiovascular MArkers in Stressed COndiTions*) — under AP-HP / Université Paris Cité / Inserm. The team has no web presence. This project creates one from scratch: a static site that presents the team, its research axes, its people, and its current publications, hosted on GitHub Pages.
+
+**The site's subject is Team 3, not MASCOT.** MASCOT/U942 is the parent unit and appears as an affiliation. The team's own name — "Digital twins for perioperative medicine" — is the site's identity and its main heading; it is *not* a tagline. This matches the SAB deck's title slide, which sets "Unit U942 - Team 3" above "Digital twins for perioperative medicine" (the string "MASCOT" appears nowhere in the deck).
 
 Constraints set by the user:
 - Static only — JavaScript is fine, no server-side code.
 - Tailwind for CSS, compiled by the Tailwind CLI in CI (not the Play CDN).
 - Single long scrolling page with anchor navigation.
-- Branding leads with the MASCOT logo; "Digital twins for perioperative medicine" is the tagline.
+- Branding leads with the team name set as type. The MASCOT wordmark is parent-unit branding and sits in the affiliation/partner row, not the hero. (Confirmed by the user.)
 - Publications come from the team's PubMed RSS feed.
 - `resources/` is source material and must **not** be committed.
 
@@ -17,39 +19,46 @@ Source material read during planning:
 - `resources/chandra/.../Presentation_SAB_equipe_3_v5.md` — OCR of the 2023 SAB presentation. This is the substantive content source: background, objectives, the four 2017–2022 axes (A1 Data, A2 Heart, A3 Vessel, A4 Brain), the 2023–2028 strategy (B1/B2/B3), the member roster, grants and metrics.
 - `resources/MIND _ Inria.html` — an Inria institutional directory page. Useful only as a rough shape (hero → objectives → contacts → news → footer); it has no member roster and no publication markup to borrow, so those sections are designed fresh.
 - `resources/logos_banners/` —
-  - `mascot.png` — tight MASCOT wordmark + tagline. **The primary logo** (crisper and better-cropped than `1760950446810.jpeg`, which is the same mark with heavy whitespace and is therefore unused).
-  - `1760948335653.png` — the heart/ECG mark alone. Used as the favicon and the small header mark.
+  - `mascot.png` — tight MASCOT wordmark + the unit's expansion. This is the **parent unit's** logo, not the team's: it goes in the affiliation/partner row. (Crisper and better-cropped than `1760950446810.jpeg`, the same mark with heavy whitespace, which is therefore unused.)
+  - `1760948335653.png` — the heart/ECG mark alone; it's the heart lifted out of the MASCOT wordmark, so it is **the unit's mark, inherited** rather than the team's own (confirmed by the user). Used as the favicon and the small header mark.
   - `digital_pkpd_twin.png` — the PK/PD → digital-twin schematic. Hero visual.
   - `AP-HP_Logo.svg`, `UniversiteParisCite_logo_horizontal_couleur_CMJN.jpg`, `inserm_logo.webp` — partner logos, covering all three named affiliations.
   - `hospital_gif.jpg` — engraving-style illustration of a hospital courtyard (reads as Lariboisière). Only 250×130px, so it's used small — a decorative mark beside the contact block, not a banner. See the flags at the bottom.
 
+There is **no Team 3 logo** in the source material. The team's visual identity is therefore its name in type, the inherited palette, and the inherited heart mark — nothing invented.
+
 ## Repository layout
 
-The working directory is already a git repo with no commits and no remote. Everything below is created at `/home/jaj/Desktop/tmp/site_web/`.
+The working directory is a git repo on `main` with no remote. Everything below is created at `/home/jaj/Desktop/tmp/site_web/`. `[x]` marks what the scaffold step has already put in place.
 
 ```
-.gitignore              # ignores resources/, node_modules/, dist output of tailwind if any
-package.json            # single devDependency: tailwindcss + @tailwindcss/cli (v4)
-src/input.css           # @import "tailwindcss"; + @theme brand tokens
-assets/css/site.css     # BUILT artifact — committed so Pages works even without CI
-assets/img/             # mascot-logo.png, mascot-mark.png, digital-twin.png, aphp.svg,
-                        # universite-paris-cite.jpg, inserm.webp, lariboisiere.jpg, favicon
-assets/js/publications.js
-data/publications.json  # generated by the nightly workflow, committed
-index.html              # the whole site
-scripts/fetch_pubmed.py # RSS -> data/publications.json
-.github/workflows/publications.yml   # nightly RSS refresh, commits data/publications.json
-.github/workflows/deploy.yml         # build Tailwind + deploy to Pages
-.nojekyll
-README.md
+[x] .gitignore              # ignores resources/, node_modules/
+[x] package.json            # devDependencies: tailwindcss + @tailwindcss/cli (v4)
+[x] src/input.css           # @import "tailwindcss" source(none); + @theme brand tokens
+[x] assets/css/site.css     # BUILT artifact — committed so Pages works even without CI
+[x] assets/img/             # mascot-logo.png, mascot-mark.png, digital-twin.png, aphp.svg,
+                            # universite-paris-cite.jpg, inserm.webp, lariboisiere.jpg,
+                            # favicon.png (32px, cropped from the heart mark)
+[x] .nojekyll
+[x] README.md
+[ ] index.html              # the whole site
+[ ] assets/js/publications.js
+[ ] data/publications.json  # generated by the nightly workflow, committed
+[ ] scripts/fetch_pubmed.py # RSS -> data/publications.json
+[ ] .github/workflows/publications.yml   # nightly RSS refresh, commits data/publications.json
+[ ] .github/workflows/deploy.yml         # build Tailwind + deploy to Pages
 ```
+
+`assets/css/site.css` is not gitignored — it's a build artifact committed on purpose (see Build & deploy).
+
+Tailwind v4 auto-detects sources, and its first build scanned `plan.md` and emitted a `text-brand-purple` utility out of this very document's prose. `src/input.css` therefore imports with `source(none)` and lists `index.html` and `assets/js` as explicit `@source`s. Any new directory holding class names has to be added there.
 
 ## Content plan for `index.html`
 
 One page, sticky header with anchor links, sections in this order:
 
-1. **Header / nav** — MASCOT mark, links: Research · Team · Publications · Partners · Contact.
-2. **Hero** — `mascot-logo.png`, tagline "Digital twins for perioperative medicine", one-line positioning ("Inserm U942 Team 3 — AP-HP · Université Paris Cité · Inserm"), the `digital-twin.png` schematic as the hero visual, and a row of partner logos (AP-HP, Université Paris Cité, Inserm) directly beneath.
+1. **Header / nav** — the heart mark + the team name in type, links: Research · Team · Publications · Partners · Contact.
+2. **Hero** — eyebrow "Inserm U942 · MASCOT · Team 3", then the team name **"Digital twins for perioperative medicine"** as the main heading (`<h1>`, set as type — no logo image), a one-line positioning sentence, the `digital-twin.png` schematic as the hero visual, and a row of affiliation logos (MASCOT, AP-HP, Université Paris Cité, Inserm) directly beneath.
 3. **The challenge** (`#challenge`) — short prose from the OCR background: >300M anesthesias/year worldwide, 15–25% postoperative complications, postoperative death as a leading cause of death (Nepogodiev, *Lancet* 2019). Three stat cards. Frame the question: *how to improve monitoring to mitigate postoperative complications?*
 4. **Our approach** (`#approach`) — the "unused nexus of data" loop: intraoperative data → data management, biomarker design, organ-crosstalk modelling, digital twin → augmented monitoring → public-health tool.
 5. **Research axes** (`#research`) — the core section, two subsections:
@@ -58,13 +67,13 @@ One page, sticky header with anchor links, sections in this order:
    Card grid, each card: axis label, goal, one-line achieved/outcome.
 6. **Team** (`#team`) — leads first (Etienne Gayat, Fabrice Vallée, Jérôme Cartailler), then grouped rosters from the OCR: Medical researchers, Technology researchers & data scientists, Clinical research associates, Ethical advisors. Name + role text, no photos (none available). A short note on the medical/technical duo model and the schools people come from.
 7. **Publications** (`#publications`) — heading, "latest from PubMed", list rendered client-side from `data/publications.json`, each entry: title (links to PubMed), authors, journal, date. Static `<noscript>` fallback link to the PubMed search.
-8. **Partners & funding** (`#partners`) — logo row for the marks we have (AP-HP, Université Paris Cité, Inserm), text entries for the rest: Inria (MIND, M3DISIM), Philips, APHP Entrepôt de Données de Santé, CentraleSupélec/ENS. Grants line (~1.4 M€ as of 2023: AI Chair, APHP foundation, Bernoulli fellowship, FHU PROMICE, Radiometer, Booster APHP, Philips).
+8. **Partners & funding** (`#partners`) — the MASCOT wordmark leads here as the parent unit (labelled as such, set apart from the collaborators), then the logo row for the other marks we have (AP-HP, Université Paris Cité, Inserm), then text entries for the rest: Inria (MIND, M3DISIM), Philips, APHP Entrepôt de Données de Santé, CentraleSupélec/ENS. Grants line (~1.4 M€ as of 2023: AI Chair, APHP foundation, Bernoulli fellowship, FHU PROMICE, Radiometer, Booster APHP, Philips).
 9. **Contact** (`#contact`) — team email **digitaltwins@letemple.org** as the primary `mailto:` link, Lariboisière / AP-HP Nord address, with the `lariboisiere.jpg` engraving as a small illustration beside it. No form (no server). The address itself is still a placeholder — see the flags below.
-10. **Footer** — affiliations, year, link to the PubMed feed.
+10. **Footer** — team name, "Team 3 of MASCOT (Inserm U942)", the affiliations, year, link to the PubMed feed.
 
 Language: **English** throughout (the source presentation and notes are in English).
 
-Design direction: clinical and restrained, drawing the palette from the MASCOT logo — purple (`#8e3f96`-ish) to red (`#e03127`-ish) gradient accents on a white/slate base. Tokens defined once in `src/input.css` under `@theme` so they're usable as `text-brand-purple` etc. System font stack; no external fonts (keeps it dependency-free). Responsive card grids via `grid` + `md:`/`lg:` breakpoints.
+Design direction: clinical and restrained. The palette is inherited from the parent unit's logo — sampled from `mascot.png`, the wordmark purple measures `#93348a` and the heart red `#e03127` — used as accents on a white/slate base. Inheriting the unit's colours is the right call even though the site is the team's: the team has no palette of its own, and it keeps the family resemblance without borrowing the unit's wordmark for the hero. Tokens defined once in `src/input.css` under `@theme` so they're usable as `text-brand-purple` etc. System font stack; no external fonts (keeps it dependency-free). Responsive card grids via `grid` + `md:`/`lg:` breakpoints.
 
 ## Publications pipeline
 
@@ -90,7 +99,7 @@ Design direction: clinical and restrained, drawing the palette from the MASCOT l
 - `.nojekyll` so nothing is filtered by Jekyll.
 - Images copied from `resources/logos_banners/` into `assets/img/` with descriptive names. `resources/` itself stays untracked via `.gitignore` (it also holds the 900 KB OCR dump and the MIND HTML mirror, neither of which belongs in the repo).
 
-**Repo/remote:** there is no git remote yet and no commits. I'll make the initial commit on a `main` branch; creating the GitHub repo and pushing needs your account, so I'll stop and hand you the exact `gh repo create` / `git push` commands rather than guessing an org and name.
+**Repo/remote:** committing to local `main` as the work goes. There is still no remote — creating the GitHub repo and pushing needs your account, so I'll stop at that point and hand you the exact `gh repo create` / `git push` commands rather than guessing an org and name.
 
 ## Verification
 
@@ -102,9 +111,11 @@ Design direction: clinical and restrained, drawing the palette from the MASCOT l
 
 ## Notes / things I'll flag rather than invent
 
+- The site is **Team 3's**, with MASCOT/U942 as the parent unit — corrected by the user after the first draft of this plan had it backwards. If any of the unit-vs-team framing below still reads wrong to you, say so; it propagates into every heading.
 - Publication counts, citation totals, and grant amounts come from a **2023** presentation; I'll present them as of 2023 or omit the ones that go stale badly (e.g. "Total citations: xx" is blank in the source).
 - The OCR spells the third lead inconsistently ("Cartailleur"/"Cartailer" in the slides). **Jérôme Cartailler** is the correct spelling — confirmed by the user, use it everywhere.
 - The member roster is from 2023 and will need your review before publishing — people leave teams.
+- "Digital twins for perioperative medicine" is long for a sticky header. Absent a short form, the header will show the heart mark plus a truncated name at narrow widths. If the team goes by something shorter in practice — or has a logo of its own that isn't in `resources/` — that solves it properly.
 - Team email is **digitaltwins@letemple.org** (confirmed by the user). No street address appears in the source material, so the postal address stays a clearly-marked placeholder for you to fill.
 - `hospital_gif.jpg` is 250×130px — fine as a small inline illustration, but it will look soft if stretched. If you want it as a hero or section banner, send a higher-resolution copy. I'm also inferring it's Lariboisière; tell me if it's another site and I'll relabel the alt text.
 - Inria and Philips have no logo files; they'll be text entries in the partner list. Drop the marks in if you want them rendered as logos.
