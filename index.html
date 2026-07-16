@@ -9,6 +9,12 @@
       content="Team 3 of Inserm Unit U942 (MASCOT). We turn intraoperative signals — EEG, ECG, blood pressure, drug data — into personalised digital twins that make anaesthesia safer."
     />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Publications — Digital twins for perioperative medicine (PubMed)"
+      href="https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50"
+    />
     <link rel="stylesheet" href="assets/css/site.css" />
     <link
       rel="preload"
@@ -810,9 +816,32 @@
             class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3"
           >
             <p class="u-channel text-ink-mute">Publications</p>
-            <p class="u-channel text-ink-mute">
-              <span id="pub-updated"></span>
-            </p>
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <p class="u-channel text-ink-mute">
+                <span id="pub-updated"></span>
+              </p>
+              <a
+                class="u-channel inline-flex items-center gap-1.5 text-ink-mute transition-colors hover:text-modelled"
+                href="https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50"
+                rel="noopener"
+              >
+                <svg
+                  class="h-3.5 w-3.5 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <circle cx="6.18" cy="17.82" r="2.18" />
+                  <path
+                    d="M4 10.1v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"
+                  />
+                  <path
+                    d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56z"
+                  />
+                </svg>
+                RSS feed
+              </a>
+            </div>
           </div>
 
           <h2
@@ -1061,9 +1090,26 @@
               <li>
                 <a
                   href="https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50"
-                  class="text-white/75 underline underline-offset-4 transition-colors hover:text-white"
-                  >Publications feed on PubMed</a
+                  class="inline-flex items-center gap-2 text-white/75 transition-colors hover:text-white"
                 >
+                  <svg
+                    class="h-3.5 w-3.5 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <circle cx="6.18" cy="17.82" r="2.18" />
+                    <path
+                      d="M4 10.1v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"
+                    />
+                    <path
+                      d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56z"
+                    />
+                  </svg>
+                  <span class="underline underline-offset-4"
+                    >Publications feed on PubMed</span
+                  >
+                </a>
               </li>
             </ul>
           </div>

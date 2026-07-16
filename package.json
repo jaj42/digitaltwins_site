@@ -5,7 +5,8 @@
   "description": "Static website for Digital twins for perioperative medicine — Team 3 of MASCOT (Inserm U942)",
   "scripts": {
     "build": "tailwindcss -i src/input.css -o assets/css/site.css --minify",
-    "dev": "tailwindcss -i src/input.css -o assets/css/site.css --watch"
+    "dev": "tailwindcss -i src/input.css -o assets/css/site.css --watch",
+    "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.14",

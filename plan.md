@@ -68,7 +68,7 @@ One page, sticky header with anchor links, sections in this order:
    - *Foundations (2017–2022)*: A1 Data infrastructure (46k patients ECG/SpO2/BP, 8.6k EEG…); A2 Heart (GALA afterload biomarker, non-invasive PWV, cardiac digital twin — patents EP3142549A1, EP22305129.3); A3 Vessel (PlethoMAP BP reconstruction, WO2019122406A1, 2021 Innovation Award; norepinephrine PK/PD); A4 Brain (TAD alpha-band EEG biomarker of brain fragility; alpha-PF and impaired cerebral perfusion).
    Card grid, each card: axis label, goal, one-line achieved/outcome.
 6. **Team** (`#team`) — leads first (Etienne Gayat, Fabrice Vallée, Jérôme Cartailler), then grouped rosters from the OCR: Medical researchers, Technology researchers & data scientists, Clinical research associates, Ethical advisors. Name + role text, no photos (none available). A short note on the medical/technical duo model and the schools people come from.
-7. **Publications** (`#publications`) — heading, "latest from PubMed", list rendered client-side from `data/publications.json`, each entry: journal + date eyebrow, title (links to PubMed), authors (long lists elided to first three + last + a count), DOI. Eight shown, the rest behind a "show all" button. Static `<noscript>` fallback link to the PubMed search.
+7. **Publications** (`#publications`) — heading, "latest from PubMed", list rendered client-side from `data/publications.json`, each entry: journal + date eyebrow, title (links to PubMed), authors (long lists elided to first three + last + a count), DOI. Eight shown, the rest behind a "show all" button. Static `<noscript>` fallback link to the PubMed search. The section header carries an "RSS feed" link to the PubMed feed, marked with the standard RSS icon (inline SVG, `currentColor`); the same mark repeats on the footer's feed link, and `<head>` declares `<link rel="alternate" type="application/rss+xml">` so readers and browser extensions discover the feed on their own.
 8. **Partners & funding** (`#partners`) — the MASCOT wordmark leads here as the parent unit (labelled as such, set apart from the collaborators), then the logo row for the other marks we have (AP-HP, Université Paris Cité, Inserm), then text entries for the rest: Inria (MIND, M3DISIM), Philips, APHP Entrepôt de Données de Santé, CentraleSupélec/ENS. Grants line (~1.4 M€ as of 2023: AI Chair, APHP foundation, Bernoulli fellowship, FHU PROMICE, Radiometer, Booster APHP, Philips).
 9. **Contact** (`#contact`) — team email **digitaltwins@letemple.org** as the primary `mailto:` link, Lariboisière / AP-HP Nord address, with the `lariboisiere.jpg` engraving as a small illustration beside it. No form (no server). The address itself is still a placeholder — see the flags below.
 10. **Footer** — team name, "Team 3 of MASCOT (Inserm U942)", the affiliations, year, link to the PubMed feed.
@@ -108,9 +108,10 @@ Two details that only showed up against the live feed, both load-bearing:
 
 ## Build & deploy
 
-- `package.json` scripts: `"build": "tailwindcss -i src/input.css -o assets/css/site.css --minify"`, `"dev": "... --watch"`.
+- `package.json` scripts: `"build": "tailwindcss -i src/input.css -o assets/css/site.css --minify"`, `"dev": "... --watch"`, `"serve": "python3 -m http.server 8000"`.
 - `.github/workflows/deploy.yml`: on push to `main` — checkout, setup-node, `npm ci`, `npm run build`, stage `_site/`, upload artifact, `actions/deploy-pages`. Uses the Pages "GitHub Actions" source rather than branch-serving. It rebuilds the CSS rather than trusting the committed copy, so a stale commit of `site.css` can't ship. The **staging step is not cosmetic**: uploading the workspace wholesale would publish `node_modules`, the Tailwind source, the fetch script, and `plan.md` — this document, internal flags and all — to a public URL. Only `index.html`, `.nojekyll`, `assets/` and `data/` are copied in.
-- `assets/css/site.css` is also committed so the site is viewable straight from a `file://` open and from a branch-served Pages setup as a fallback.
+- `assets/css/site.css` is also committed so the site needs no build step to look right — it renders from a branch-served Pages setup, and from a bare `file://` open, as a fallback.
+- **The site has to be served over HTTP to preview it properly — `npm run serve`, then `http://localhost:8000`.** Opening `index.html` as a `file://` URL styles correctly but shows "The publication list could not be loaded": `fetch()` on a file page runs from an opaque origin, so the browser blocks the read of `data/publications.json` before it reaches disk, and `publications.js` takes its error path. That is the failure path behaving correctly, not a broken feed — the JSON on disk is fine and Pages serves it over HTTP. It cost a round of confusion once; hence the `serve` script.
 - `.nojekyll` so nothing is filtered by Jekyll.
 - Images copied from `resources/logos_banners/` into `assets/img/` with descriptive names. `resources/` itself stays untracked via `.gitignore` (it also holds the 900 KB OCR dump and the MIND HTML mirror, neither of which belongs in the repo).
 
@@ -118,13 +119,17 @@ Two details that only showed up against the live feed, both load-bearing:
 
 ## Verification
 
-Steps 1–4 ran against the built site (Playwright, Chromium) and pass. Step 5 needs the remote.
+Steps 1–4 ran against the built site (Playwright, Chromium) and pass. Step 5 needs the remote; step 6 is a later change that never got a browser pass.
 
 1. **Pass.** `npm run build` produces `assets/css/site.css` at ~25 KB, and rebuilding a clean tree reproduces it byte-identically.
 2. **Pass.** `python3 scripts/fetch_pubmed.py` pulls 35 real entries, most recent *Eur J Anaesthesiol* 2026 Jun 11, with team members in the author lists. Re-running is a no-op ("no change: 35 publications") — which is the point of canonicalising the URLs.
 3. **Pass.** Served locally: 35 publications render from the JSON, fonts resolve, no console or page errors, and `scrollWidth == innerWidth` at 375 / 768 / 1024 / 1440. The nav's fade mask only bites below `sm`; at 768 all five links fit. Re-run after the hero swap: still passes, hero image loads at its full 3370×827, no canvas left on the page.
 4. **Pass.** The publications failure path, driven rather than reasoned about: `data/publications.json` blocked at the network layer → "The publication list could not be loaded." plus the PubMed link, not a blank section. (A `prefers-reduced-motion` check lived here too; with the canvas gone the page has no animation to suppress.)
 5. **Not yet — needs the remote.** Trigger `publications.yml` via `workflow_dispatch` and confirm `deploy.yml` publishes a working Pages URL. Also worth confirming the first Pages deploy after setting the source to "GitHub Actions".
+
+6. **Not browser-verified — the feed icon.** The RSS mark in the Publications header, its footer twin, and the `rel="alternate"` head link were added without a browser check: no Playwright in the environment at the time and no server up. Confirmed statically only — the markup is in `index.html` and every utility class it uses (`inline-flex`, `items-center`, `gap-1.5`, `h-3.5`, `w-3.5`, `shrink-0`, `gap-x-5`) is in the built `site.css`. Unverified: the icon's optical alignment against the mono label, and how the header row wraps below `sm`.
+
+Re-confirmed against the live feed (2026-07-16): `python3 scripts/fetch_pubmed.py` returns "no change: 35 publications", exit 0. A separately downloaded copy of the feed (`resources/index.rss`, `lastBuildDate` the same day) parses to byte-identical items — same 35 PMIDs, no field differences. The pipeline is current; the fetch has never actually failed.
 
 Also checked, beyond the original list:
 - **Contrast.** Every foreground/background pair in the token set clears 4.5:1, including the 11px mono labels on `--color-panel`. `--color-ink-mute` was darkened from `#78707f` to `#726a79` to get there — it passed on white but not on the panel.
