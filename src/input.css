@@ -20,8 +20,7 @@
    the red heart and the purple wordmark. The team has no palette of its own, so
    it inherits the unit's — and the inheritance happens to line up with the
    distinction the team's science actually makes. Red is also the ABP trace
-   colour on every OR monitor, so the hero waveform reads correctly to a
-   clinician.
+   colour on every OR monitor, so it reads correctly to a clinician.
    --------------------------------------------------------------------------- */
 
 @theme {
@@ -45,11 +44,8 @@
   --color-rule: #e6e1e8;
   --color-panel: #f8f6f9;
 
-  /* Instrument — the dark surface of an OR monitor. Confined to the hero
-     waveform and nothing else. On dark the brand hexes fail contrast, so each
-     trace gets a lifted variant tuned for the instrument background. */
-  --color-instrument: #141019;
-  --color-instrument-rule: #2e2739;
+  /* Lifted variants of the two brand hexes, for the dark footer — on dark the
+     brand hexes themselves fail contrast. */
   --color-trace-measured: #ff5347;
   --color-trace-modelled: #cb79c2;
 

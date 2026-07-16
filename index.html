@@ -129,57 +129,20 @@
           comes next.
         </p>
 
-        <!-- Signature: measured trace, and the twin converging onto it -->
         <figure class="mt-12">
-          <div
-            class="overflow-hidden rounded-md border border-instrument-rule bg-instrument"
-          >
-            <div
-              class="flex items-baseline justify-between gap-4 border-b border-instrument-rule px-4 py-2.5 sm:px-5"
-            >
-              <p class="u-channel text-white/45">
-                ABP <span class="text-white/25">/</span> schematic
-              </p>
-              <p class="u-channel text-white/45">
-                agreement
-                <span
-                  id="twin-agreement"
-                  class="ml-1.5 tabular-nums text-trace-modelled"
-                  >—</span
-                >
-              </p>
-            </div>
-
-            <canvas
-              id="twin-wave"
-              class="block h-44 w-full sm:h-56"
-              role="img"
-              aria-label="Schematic arterial blood pressure trace. A measured waveform is drawn in red; a model-generated twin, in purple, starts with the wrong contractility and timing and converges onto the measured trace."
-            ></canvas>
-
-            <div
-              class="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-instrument-rule px-4 py-2.5 sm:px-5"
-            >
-              <p class="u-channel flex items-center gap-2 text-white/60">
-                <span
-                  class="inline-block h-0.5 w-5 bg-trace-measured"
-                  aria-hidden="true"
-                ></span>
-                measured
-              </p>
-              <p class="u-channel flex items-center gap-2 text-white/60">
-                <span
-                  class="inline-block h-0.5 w-5 bg-trace-modelled"
-                  aria-hidden="true"
-                ></span>
-                modelled twin
-              </p>
-              <p class="u-channel ml-auto text-white/30">62 bpm</p>
-            </div>
+          <div class="overflow-x-auto rounded-md border border-rule bg-panel">
+            <img
+              src="assets/img/digital-twin.png"
+              alt="The model-based ecosystem. Off-line data and the drugs given — propofol as hypnotic, noradrenaline as vasopressor — feed pharmacokinetic models. These couple to pharmacodynamic models driven by oxygen saturation and EEG, and to a biophysical cardiac model driven by the vitals. Together they produce the digital twin, which reports on the vessels, the heart and the brain."
+              width="3370"
+              height="827"
+              fetchpriority="high"
+              class="h-auto w-full min-w-[52rem] max-w-none"
+            />
           </div>
-
-          <figcaption class="mt-3 text-sm leading-relaxed text-ink-mute">
-            A schematic, not patient data. Throughout this site,
+          <figcaption class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-mute">
+            Pharmacokinetic and pharmacodynamic models, coupled to a biophysical
+            cardiac model, drive the twin. Throughout this site,
             <span class="font-medium text-measured">red is measured</span> and
             <span class="font-medium text-modelled">purple is modelled</span>.
           </figcaption>
@@ -352,23 +315,6 @@
               </p>
             </li>
           </ol>
-
-          <figure class="mt-12">
-            <div class="overflow-x-auto rounded-md border border-rule bg-panel">
-              <img
-                src="assets/img/digital-twin.png"
-                alt="The model-based ecosystem. Off-line data and the drugs given — propofol as hypnotic, noradrenaline as vasopressor — feed pharmacokinetic models. These couple to pharmacodynamic models driven by oxygen saturation and EEG, and to a biophysical cardiac model driven by the vitals. Together they produce the digital twin, which reports on the vessels, the heart and the brain."
-                width="3370"
-                height="827"
-                loading="lazy"
-                class="h-auto w-full min-w-[52rem] max-w-none"
-              />
-            </div>
-            <figcaption class="mt-3 text-sm leading-relaxed text-ink-mute">
-              Pharmacokinetic and pharmacodynamic models, coupled to a
-              biophysical cardiac model, drive the twin.
-            </figcaption>
-          </figure>
         </div>
       </section>
 
@@ -1135,7 +1081,6 @@
       </div>
     </footer>
 
-    <script src="assets/js/waveform.js" defer></script>
     <script src="assets/js/publications.js" defer></script>
   </body>
 </html>
