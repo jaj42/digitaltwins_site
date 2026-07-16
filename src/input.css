@@ -1,28 +1,136 @@
 /* source(none) disables auto-detection, which would otherwise scan plan.md and
    any other prose in the repo for class names. */
 @import "tailwindcss" source(none);
+@import "./fonts.css";
 @source "../index.html";
 @source "../assets/js";
 
-/* Brand tokens, sampled from the logo of the parent unit (MASCOT / Inserm U942):
-   the purple wordmark and the red heart mark. The team has no palette of its own,
-   so it inherits the unit's. Available as bg-brand-purple, text-brand-red, etc. */
-@theme {
-  --color-brand-purple: #93348a;
-  --color-brand-purple-dark: #6d2566;
-  --color-brand-purple-light: #f4e9f3;
-  --color-brand-red: #e03127;
-  --color-brand-red-dark: #b0231b;
-  --color-brand-red-light: #fdeceb;
+/* ---------------------------------------------------------------------------
+   Design system — "measured vs modelled"
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+   The team's work is one picture repeated: a measured signal and a simulated
+   one, overlaid, converging. Every axis in the SAB deck is that picture (MAP
+   gold-standard vs computed; PV-loop measurement vs simulation; TAD fragile vs
+   non-fragile). The page encodes it as a colour rule that holds everywhere:
+
+       RED    = measured — the patient, the signal, the observed fact
+       PURPLE = modelled — the twin, the method, the thing the team built
+
+   Both hexes are sampled from the parent unit's logo (MASCOT / Inserm U942):
+   the red heart and the purple wordmark. The team has no palette of its own, so
+   it inherits the unit's — and the inheritance happens to line up with the
+   distinction the team's science actually makes. Red is also the ABP trace
+   colour on every OR monitor, so the hero waveform reads correctly to a
+   clinician.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  /* Measured — the patient */
+  --color-measured: #e03127;
+  --color-measured-dark: #b0231b;
+  --color-measured-light: #fdeceb;
+
+  /* Modelled — the twin */
+  --color-modelled: #93348a;
+  --color-modelled-dark: #6d2566;
+  --color-modelled-light: #f4e9f3;
+
+  /* Paper — near-black carries a purple cast so the neutrals belong to the
+     same family as the accents rather than reading as stock slate. */
+  --color-ink: #16121a;
+  --color-ink-soft: #4a4351;
+  /* Dark enough to clear 4.5:1 on --color-panel, not just on white — the mono
+     channel labels are 11px, and half of them sit on a panel. */
+  --color-ink-mute: #726a79;
+  --color-rule: #e6e1e8;
+  --color-panel: #f8f6f9;
+
+  /* Instrument — the dark surface of an OR monitor. Confined to the hero
+     waveform and nothing else. On dark the brand hexes fail contrast, so each
+     trace gets a lifted variant tuned for the instrument background. */
+  --color-instrument: #141019;
+  --color-instrument-rule: #2e2739;
+  --color-trace-measured: #ff5347;
+  --color-trace-modelled: #cb79c2;
+
+  --font-serif: "Source Serif 4", Charter, "Bitstream Charter", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* The team name is 44 characters and has to hold at display size. */
+  --text-display: clamp(2.2rem, 6.2vw, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.028em;
 }
 
-/* Anchor links land below the sticky header instead of under it. */
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    background: var(--color-paper, #fff);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Source Serif's optical-size axis: let it set the small end itself, but
+     force the display end on the big headings via .u-display below. */
+  :root {
+    font-variation-settings: "opsz" 16;
+  }
+
+  ::selection {
+    background: var(--color-modelled);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-modelled);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Display type: optical size pushed to the display end, where Source Serif
+     tightens its spacing and sharpens the contrast. */
+  .u-display {
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    letter-spacing: var(--text-display--letter-spacing);
+    font-variation-settings: "opsz" 60;
+    font-weight: 600;
+  }
+
+  /* Channel label — the mono rail that runs down the page, borrowed from the
+     channel labels on a monitor bezel. */
+  .u-channel {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Hairline that reads as an instrument gridline rather than a border.
+     repeating-linear-gradient, not linear-gradient: a plain gradient with
+     pixel stops paints one 4px dash across the whole element and leaves the
+     rest transparent. */
+  .u-grid-rule {
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-rule) 0 4px,
+      transparent 4px 8px
+    );
+    height: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

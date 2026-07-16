@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Digital twins for perioperative medicine — Inserm U942, Team 3</title>
+    <meta
+      name="description"
+      content="Team 3 of Inserm Unit U942 (MASCOT). We turn intraoperative signals — EEG, ECG, blood pressure, drug data — into personalised digital twins that make anaesthesia safer."
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/source-serif-4-300_700-normal-latin.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/ibm-plex-mono-500-normal-latin.woff2"
+      crossorigin
+    />
+  </head>
+
+  <body class="bg-white text-ink antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-white u-channel"
+      >Skip to content</a
+    >
+
+    <!-- ───────────────────────── Header ───────────────────────── -->
+    <header
+      class="sticky top-0 z-40 border-b border-rule bg-white/90 backdrop-blur-sm"
+    >
+      <div
+        class="mx-auto flex max-w-6xl items-center gap-4 px-5 py-1.5 sm:px-8"
+      >
+        <a href="#main" class="flex shrink-0 items-center gap-3">
+          <img
+            src="assets/img/mascot-mark.png"
+            alt=""
+            width="800"
+            height="800"
+            class="h-7 w-7 object-contain"
+          />
+          <span class="sr-only">Digital twins for perioperative medicine</span>
+          <span
+            class="hidden text-[0.9rem] leading-tight font-semibold tracking-tight lg:block"
+            aria-hidden="true"
+            >Digital twins for<br />perioperative medicine</span
+          >
+          <span class="u-channel text-ink-mute lg:hidden" aria-hidden="true"
+            >U942 · T3</span
+          >
+        </a>
+
+        <!-- The nav scrolls sideways rather than collapsing to a menu. The mask
+             fades the right edge so the clipped link reads as "more this way"
+             instead of as a broken layout; above sm everything fits. -->
+        <nav
+          aria-label="Sections"
+          class="ml-auto -mr-5 overflow-x-auto [mask-image:linear-gradient(to_right,#000_82%,transparent)] sm:-mr-8 sm:[mask-image:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <ul class="flex items-center gap-5 pr-5 sm:gap-7 sm:pr-8">
+            <li>
+              <a
+                href="#research"
+                class="u-channel block whitespace-nowrap py-3 text-ink-soft transition-colors hover:text-modelled"
+                >Research</a
+              >
+            </li>
+            <li>
+              <a
+                href="#team"
+                class="u-channel block whitespace-nowrap py-3 text-ink-soft transition-colors hover:text-modelled"
+                >Team</a
+              >
+            </li>
+            <li>
+              <a
+                href="#publications"
+                class="u-channel block whitespace-nowrap py-3 text-ink-soft transition-colors hover:text-modelled"
+                >Publications</a
+              >
+            </li>
+            <li>
+              <a
+                href="#partners"
+                class="u-channel block whitespace-nowrap py-3 text-ink-soft transition-colors hover:text-modelled"
+                >Partners</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="u-channel block whitespace-nowrap py-3 text-ink-soft transition-colors hover:text-modelled"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ───────────────────────── Hero ───────────────────────── -->
+      <section class="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-8 sm:pt-20">
+        <p class="u-channel text-ink-mute">
+          Inserm U942 <span class="text-rule">/</span> MASCOT
+          <span class="text-rule">/</span> Team 3
+        </p>
+
+        <h1 class="u-display mt-5 max-w-4xl text-balance">
+          Digital twins for perioperative medicine
+        </h1>
+
+        <p
+          class="mt-7 max-w-2xl text-lg leading-relaxed text-ink-soft sm:text-xl"
+        >
+          Every anaesthetic already produces a dense stream of signals — the
+          heart, the vessels, the brain, the drugs going in. We build models
+          personalised to the patient producing them, so that the monitor in the
+          operating room stops reporting the present and starts anticipating what
+          comes next.
+        </p>
+
+        <!-- Signature: measured trace, and the twin converging onto it -->
+        <figure class="mt-12">
+          <div
+            class="overflow-hidden rounded-md border border-instrument-rule bg-instrument"
+          >
+            <div
+              class="flex items-baseline justify-between gap-4 border-b border-instrument-rule px-4 py-2.5 sm:px-5"
+            >
+              <p class="u-channel text-white/45">
+                ABP <span class="text-white/25">/</span> schematic
+              </p>
+              <p class="u-channel text-white/45">
+                agreement
+                <span
+                  id="twin-agreement"
+                  class="ml-1.5 tabular-nums text-trace-modelled"
+                  >—</span
+                >
+              </p>
+            </div>
+
+            <canvas
+              id="twin-wave"
+              class="block h-44 w-full sm:h-56"
+              role="img"
+              aria-label="Schematic arterial blood pressure trace. A measured waveform is drawn in red; a model-generated twin, in purple, starts with the wrong contractility and timing and converges onto the measured trace."
+            ></canvas>
+
+            <div
+              class="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-instrument-rule px-4 py-2.5 sm:px-5"
+            >
+              <p class="u-channel flex items-center gap-2 text-white/60">
+                <span
+                  class="inline-block h-0.5 w-5 bg-trace-measured"
+                  aria-hidden="true"
+                ></span>
+                measured
+              </p>
+              <p class="u-channel flex items-center gap-2 text-white/60">
+                <span
+                  class="inline-block h-0.5 w-5 bg-trace-modelled"
+                  aria-hidden="true"
+                ></span>
+                modelled twin
+              </p>
+              <p class="u-channel ml-auto text-white/30">62 bpm</p>
+            </div>
+          </div>
+
+          <figcaption class="mt-3 text-sm leading-relaxed text-ink-mute">
+            A schematic, not patient data. Throughout this site,
+            <span class="font-medium text-measured">red is measured</span> and
+            <span class="font-medium text-modelled">purple is modelled</span>.
+          </figcaption>
+        </figure>
+
+        <!-- Affiliations -->
+        <div class="mt-14 border-t border-rule pt-8">
+          <p class="u-channel text-ink-mute">Affiliations</p>
+          <ul class="mt-5 flex flex-wrap items-center gap-x-10 gap-y-6">
+            <li>
+              <img
+                src="assets/img/mascot-logo.png"
+                alt="MASCOT — Cardiovascular Markers in Stressed Conditions, Inserm Unit U942"
+                width="427"
+                height="154"
+                class="h-9 w-auto object-contain sm:h-10"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/img/aphp.svg"
+                alt="Assistance Publique – Hôpitaux de Paris"
+                class="h-9 w-auto object-contain sm:h-10"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/img/universite-paris-cite.jpg"
+                alt="Université Paris Cité"
+                width="1836"
+                height="700"
+                class="h-9 w-auto object-contain sm:h-10"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/img/inserm.webp"
+                alt="Inserm"
+                width="700"
+                height="288"
+                class="h-9 w-auto object-contain sm:h-10"
+              />
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Challenge ───────────────────────── -->
+      <section id="challenge" class="border-t border-rule bg-panel">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-measured">The challenge</p>
+
+          <div class="mt-6 grid gap-x-14 gap-y-8 lg:grid-cols-[1fr_1fr]">
+            <h2
+              class="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+            >
+              Surgery is safe enough that we stopped counting what it costs.
+            </h2>
+            <div class="space-y-4 text-lg leading-relaxed text-ink-soft">
+              <p>
+                Anaesthesia is among the most common medical acts in the world,
+                and one of the least examined. Between 15% and 25% of operations
+                are followed by a complication — cognitive dysfunction, acute
+                kidney injury, stroke, myocardial infarction — and the damage is
+                often done during the procedure itself.
+              </p>
+              <p>
+                An anaesthetic that runs too deep bursts cerebral electrical
+                activity and triples the incidence of delirium. Intraoperative
+                hypotension impairs cerebral blood flow and injures myocardium.
+                Both are visible on the monitors in the room, in signals nobody
+                is modelling.
+              </p>
+            </div>
+          </div>
+
+          <ul
+            class="mt-14 grid gap-px overflow-hidden rounded-md border border-rule bg-rule sm:grid-cols-3"
+          >
+            <li class="bg-white p-6 sm:p-7">
+              <p class="font-mono text-4xl font-medium text-measured sm:text-5xl">
+                300M
+              </p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                anaesthetics given every year worldwide, 12 million of them in
+                France.
+              </p>
+            </li>
+            <li class="bg-white p-6 sm:p-7">
+              <p class="font-mono text-4xl font-medium text-measured sm:text-5xl">
+                15–25%
+              </p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                of operations are followed by a postoperative complication.
+              </p>
+            </li>
+            <li class="bg-white p-6 sm:p-7">
+              <p class="font-mono text-4xl font-medium text-measured sm:text-5xl">
+                7.7%
+              </p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                of all deaths worldwide are postoperative — the third leading
+                cause, after ischaemic heart disease and stroke.
+              </p>
+            </li>
+          </ul>
+          <p class="mt-4 text-sm text-ink-mute">
+            Nepogodiev et al., <em>The Lancet</em> (2019); Pearse et al.,
+            <em>The Lancet</em> (2012).
+          </p>
+
+          <p
+            class="mt-12 max-w-3xl border-l-2 border-measured pl-5 text-xl leading-relaxed font-medium text-balance sm:text-2xl"
+          >
+            How do we improve monitoring in the operating room to mitigate
+            postoperative complications?
+          </p>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Approach ───────────────────────── -->
+      <section id="approach" class="border-t border-rule">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-modelled">Our approach</p>
+
+          <div class="mt-6 grid gap-x-14 gap-y-8 lg:grid-cols-[1fr_1fr]">
+            <h2
+              class="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+            >
+              An unused nexus of data.
+            </h2>
+            <p class="text-lg leading-relaxed text-ink-soft">
+              The operating room already records everything we need. It records
+              it to a screen that forgets it a second later. We take that stream,
+              keep it, and use it to fit a model of the patient that runs
+              alongside them — a twin that can be asked what happens next, and
+              what to do about it.
+            </p>
+          </div>
+
+          <!-- The cycle: this is a real loop from the team's own diagram, so the
+               ordering carries information rather than decorating. -->
+          <ol class="mt-14 grid gap-px overflow-hidden rounded-md border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+            <li class="bg-white p-6 sm:p-7">
+              <p class="u-channel text-measured">Intraoperative data</p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                Vitals, EEG and drug administration, streamed out of the
+                operating room and kept.
+              </p>
+            </li>
+            <li class="bg-white p-6 sm:p-7">
+              <p class="u-channel text-modelled">Models</p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                Data management, biomarker design, organ-crosstalk modelling, and
+                the digital twin itself.
+              </p>
+            </li>
+            <li class="bg-white p-6 sm:p-7">
+              <p class="u-channel text-modelled">Augmented monitoring</p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                The model returns to the anaesthetist during the procedure, as
+                feedback they can act on.
+              </p>
+            </li>
+            <li class="bg-white p-6 sm:p-7">
+              <p class="u-channel text-ink-mute">Public health tool</p>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                What the room learns about one patient becomes risk
+                stratification for everyone.
+              </p>
+            </li>
+          </ol>
+
+          <figure class="mt-12">
+            <div class="overflow-x-auto rounded-md border border-rule bg-panel">
+              <img
+                src="assets/img/digital-twin.png"
+                alt="The model-based ecosystem. Off-line data and the drugs given — propofol as hypnotic, noradrenaline as vasopressor — feed pharmacokinetic models. These couple to pharmacodynamic models driven by oxygen saturation and EEG, and to a biophysical cardiac model driven by the vitals. Together they produce the digital twin, which reports on the vessels, the heart and the brain."
+                width="3370"
+                height="827"
+                loading="lazy"
+                class="h-auto w-full min-w-[52rem] max-w-none"
+              />
+            </div>
+            <figcaption class="mt-3 text-sm leading-relaxed text-ink-mute">
+              Pharmacokinetic and pharmacodynamic models, coupled to a
+              biophysical cardiac model, drive the twin.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Research ───────────────────────── -->
+      <section id="research" class="border-t border-rule bg-panel">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-modelled">Research</p>
+          <h2
+            class="mt-6 max-w-3xl text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+          >
+            From compartmental research to translational, multiscale research.
+          </h2>
+
+          <!-- Current strategy -->
+          <div class="mt-16">
+            <div class="flex items-baseline gap-4">
+              <h3 class="text-xl font-semibold tracking-tight">
+                Current strategy
+              </h3>
+              <span class="u-channel text-ink-mute">2023 – 2028</span>
+            </div>
+            <div class="u-grid-rule mt-4"></div>
+
+            <div class="mt-8 grid gap-6 lg:grid-cols-3">
+              <article
+                class="flex flex-col rounded-md border border-rule bg-white p-6 sm:p-7"
+              >
+                <p class="u-channel text-modelled">B1 — Infrastructure</p>
+                <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                  Real-time compatible numerical infrastructure
+                </h4>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                  Collect, store, analyse and return processed feedback while the
+                  operation is still happening. Physiological signals and drug
+                  data, harmonised on ingest and streamed rather than filed.
+                </p>
+                <ul
+                  class="mt-5 flex flex-wrap gap-1.5"
+                  aria-label="Platform components"
+                >
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">Data Warehouse Connect</li>
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">Mirth</li>
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">Kafka</li>
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">TimescaleDB</li>
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">Grafana</li>
+                  <li class="u-channel rounded-sm bg-panel px-2 py-1 text-ink-mute">FastAPI</li>
+                </ul>
+                <p
+                  class="mt-auto pt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                >
+                  Target: physiological data from 50 operating rooms by 2025.
+                </p>
+              </article>
+
+              <article
+                class="flex flex-col rounded-md border border-rule bg-white p-6 sm:p-7"
+              >
+                <p class="u-channel text-modelled">B2 — Monitoring</p>
+                <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                  Advanced heart, brain and vessel monitoring
+                </h4>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                  Model the crosstalk between organs under anaesthesia, tune the
+                  parameters against the database built over the past five years,
+                  and put the result behind an interface the anaesthetist can
+                  use: set a target effect, get a drug administration strategy for
+                  noradrenaline and propofol.
+                </p>
+                <p
+                  class="mt-auto pt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                >
+                  Outcome: an actionable model-based ecosystem for the effects of
+                  hypnotic and vasoactive agents.
+                </p>
+              </article>
+
+              <article
+                class="flex flex-col rounded-md border border-rule bg-white p-6 sm:p-7"
+              >
+                <p class="u-channel text-modelled">B3 — Consultation</p>
+                <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                  Medical consultation under general anaesthesia
+                </h4>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                  General anaesthesia is a cardiovascular and cerebral stress
+                  test that millions of people already take. Read the organ
+                  response against the medical history, phenotype it, and stratify
+                  cardiovascular and cerebral risk from data that was collected
+                  anyway.
+                </p>
+                <p
+                  class="mt-auto pt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                >
+                  Outcome: making anaesthesia an instrument of public health.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <!-- Foundations -->
+          <div class="mt-20">
+            <div class="flex items-baseline gap-4">
+              <h3 class="text-xl font-semibold tracking-tight">Foundations</h3>
+              <span class="u-channel text-ink-mute">2017 – 2022</span>
+            </div>
+            <div class="u-grid-rule mt-4"></div>
+            <p class="mt-6 max-w-2xl leading-relaxed text-ink-soft">
+              Four axes, built in order: the data first, then one organ system at
+              a time.
+            </p>
+
+            <div class="mt-8 grid gap-6 md:grid-cols-2">
+              <!-- A1 -->
+              <article
+                class="flex flex-col rounded-md border border-rule bg-white p-6 sm:p-7"
+              >
+                <p class="u-channel text-measured">A1 — Data</p>
+                <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                  Building a data collection platform
+                </h4>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                  A numerical infrastructure that gathers, aggregates,
+                  identifies, stores and analyses intraoperative data — from the
+                  monitors in the room through to a curated hospital database.
+                </p>
+
+                <table class="mt-6 w-full text-left">
+                  <caption class="u-channel pb-2 text-left text-ink-mute">
+                    Recorded and curated, by patient
+                  </caption>
+                  <thead class="sr-only">
+                    <tr>
+                      <th scope="col">Variable</th>
+                      <th scope="col">Patients recorded</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-[0.9rem]">
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        ECG, O₂ saturation, cuff blood pressure
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        46 021
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Ventilation waveforms
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        20 161
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Halogenated drug doses
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        17 433
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Temperature
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        14 812
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        EEG
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        8 611
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Invasive blood pressure
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        5 782
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Cardiac output
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        2 130
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Transcutaneous CO₂ partial pressure
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        1 651
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Tissue oxygenation
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        1 624
+                      </td>
+                    </tr>
+                    <tr class="border-t border-rule">
+                      <th scope="row" class="py-1.5 pr-3 font-normal text-ink-soft">
+                        Near-infrared spectroscopy
+                      </th>
+                      <td class="py-1.5 text-right font-mono tabular-nums text-measured">
+                        547
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p
+                  class="mt-auto pt-6 text-[0.95rem] leading-relaxed font-medium text-measured-dark"
+                >
+                  Achieved: a working infrastructure for collecting data from the
+                  operating room.
+                </p>
+              </article>
+
+              <div class="flex flex-col gap-6">
+                <!-- A2 -->
+                <article class="rounded-md border border-rule bg-white p-6 sm:p-7">
+                  <p class="u-channel text-modelled">A2 — Heart</p>
+                  <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                    Intraoperative monitoring of cardiac function
+                  </h4>
+                  <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                    The global afterload angle (GALA), a biomarker of global
+                    cardiac afterload read from aortic pressure against flow
+                    velocity. A non-invasive, continuous measure of pulse wave
+                    velocity from ECG and digital plethysmography. And a
+                    personalised cardiac digital twin that reproduces both a
+                    patient's baseline pressure–volume loops and the changes a
+                    drug induces.
+                  </p>
+                  <ul class="mt-5 flex flex-wrap gap-1.5" aria-label="Patents">
+                    <li class="u-channel rounded-sm bg-modelled-light px-2 py-1 text-modelled-dark">
+                      EP3142549A1
+                    </li>
+                    <li class="u-channel rounded-sm bg-modelled-light px-2 py-1 text-modelled-dark">
+                      EP22305129.3
+                    </li>
+                  </ul>
+                  <p
+                    class="mt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                  >
+                    Achieved: a cardiac model that reproduces the baseline and the
+                    response to pharmacological intervention.
+                  </p>
+                </article>
+
+                <!-- A3 -->
+                <article class="rounded-md border border-rule bg-white p-6 sm:p-7">
+                  <p class="u-channel text-modelled">A3 — Vessel</p>
+                  <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                    Augmented blood pressure monitoring
+                  </h4>
+                  <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                    PlethoMAP reconstructs mean arterial pressure at high fidelity
+                    from non-invasive oxygen saturation alone, using a
+                    multi-threaded network over the photoplethysmography
+                    waveform — tracking the invasive gold standard between cuff
+                    inflations, where the standard non-invasive measure goes flat.
+                    Alongside it, a pharmacokinetic/pharmacodynamic model of
+                    norepinephrine's effect on blood pressure, validated on 29
+                    prospectively recruited patients.
+                  </p>
+                  <ul class="mt-5 flex flex-wrap gap-1.5" aria-label="Patents and awards">
+                    <li class="u-channel rounded-sm bg-modelled-light px-2 py-1 text-modelled-dark">
+                      WO2019122406A1
+                    </li>
+                    <li class="u-channel rounded-sm bg-modelled-light px-2 py-1 text-modelled-dark">
+                      2021 Innovation Award
+                    </li>
+                  </ul>
+                  <p
+                    class="mt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                  >
+                    Achieved: high-fidelity arterial pressure, non-invasively.
+                  </p>
+                </article>
+
+                <!-- A4 -->
+                <article class="rounded-md border border-rule bg-white p-6 sm:p-7">
+                  <p class="u-channel text-modelled">A4 — Brain</p>
+                  <h4 class="mt-3 text-lg font-semibold tracking-tight">
+                    Brain function under general anaesthesia
+                  </h4>
+                  <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                    Transient alpha decrease (TAD), a modulation of the 7–14 Hz
+                    band, marks brain fragility under propofol and separates the
+                    patients who will develop burst suppression from those who
+                    will not. Separately, the alpha peak frequency shifts when
+                    cerebral perfusion is impaired — which today only a
+                    transcranial Doppler can establish, and no one runs one
+                    routinely.
+                  </p>
+                  <ul class="mt-5 flex flex-wrap gap-1.5" aria-label="Patents">
+                    <li class="u-channel rounded-sm bg-modelled-light px-2 py-1 text-modelled-dark">
+                      Patent filed, under revision
+                    </li>
+                  </ul>
+                  <p
+                    class="mt-6 text-[0.95rem] leading-relaxed font-medium text-modelled-dark"
+                  >
+                    Achieved: an EEG biomarker of brain fragility, and an EEG
+                    response to impaired cerebral blood flow.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Team ───────────────────────── -->
+      <section id="team" class="border-t border-rule">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-ink-mute">Team</p>
+
+          <div class="mt-6 grid gap-x-14 gap-y-8 lg:grid-cols-[1fr_1fr]">
+            <h2
+              class="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+            >
+              Every project has a doctor and a mathematician on it.
+            </h2>
+            <p class="text-lg leading-relaxed text-ink-soft">
+              The team is built in duos — a
+              <span class="font-medium text-measured">medical researcher</span>
+              who knows what the operating room actually does, paired with a
+              <span class="font-medium text-modelled">technology researcher</span>
+              who knows what the signal will support. Neither half writes a paper
+              the other could not defend.
+            </p>
+          </div>
+
+          <!-- Leads -->
+          <ul class="mt-14 grid gap-6 sm:grid-cols-3">
+            <li class="rounded-md border border-rule bg-white p-6">
+              <p class="u-channel text-measured">Lead</p>
+              <p class="mt-3 text-lg font-semibold tracking-tight">
+                Prof. Etienne Gayat
+              </p>
+              <p class="mt-1 text-[0.95rem] text-ink-soft">MD, PhD</p>
+            </li>
+            <li class="rounded-md border border-rule bg-white p-6">
+              <p class="u-channel text-measured">Lead</p>
+              <p class="mt-3 text-lg font-semibold tracking-tight">
+                Prof. Fabrice Vallée
+              </p>
+              <p class="mt-1 text-[0.95rem] text-ink-soft">MD, PhD</p>
+            </li>
+            <li class="rounded-md border border-rule bg-white p-6">
+              <p class="u-channel text-modelled">Lead</p>
+              <p class="mt-3 text-lg font-semibold tracking-tight">
+                Jérôme Cartailler
+              </p>
+              <p class="mt-1 text-[0.95rem] text-ink-soft">PhD, Mathematician</p>
+            </li>
+          </ul>
+
+          <!-- Rosters -->
+          <div class="mt-12 grid gap-10 md:grid-cols-2">
+            <div>
+              <h3 class="u-channel text-measured">Medical researchers</h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-5 space-y-2 text-[0.98rem] text-ink-soft">
+                <li>Etienne Gayat <span class="text-ink-mute">— HDR</span></li>
+                <li>Eric Vicaut <span class="text-ink-mute">— HDR</span></li>
+                <li>Fabrice Vallée</li>
+                <li>Cyril Touchard</li>
+                <li>
+                  Elsa Manquat <span class="text-ink-mute">— PhD student</span>
+                </li>
+                <li>Jona Joachim</li>
+                <li>Charlotte Levé</li>
+                <li>Alex Hong</li>
+                <li>Ambre Tiepolo</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="u-channel text-modelled">
+                Technology researchers &amp; data scientists
+              </h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-5 space-y-2 text-[0.98rem] text-ink-soft">
+                <li>François Kimmig</li>
+                <li>Jérôme Cartailler</li>
+                <li>David Sabbagh</li>
+                <li>
+                  Jade Perdereau
+                  <span class="text-ink-mute">— PhD student, CentraleSupélec</span>
+                </li>
+                <li>Thibaut Chamoux</li>
+                <li>Valentin Iovene</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="u-channel text-ink-mute">Clinical research associates</h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-5 space-y-2 text-[0.98rem] text-ink-soft">
+                <li>Marie-Céline Fournier</li>
+                <li>Valentina Cogliandro</li>
+                <li>Safa Ben Manaa</li>
+                <li>Stéphanie André</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="u-channel text-ink-mute">Ethical advisors</h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-5 space-y-2 text-[0.98rem] text-ink-soft">
+                <li>Joaquim Matéo</li>
+                <li>
+                  Pauline Elie <span class="text-ink-mute">— PhD student</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Where people come from -->
+          <div class="mt-14 rounded-md border border-rule bg-panel p-6 sm:p-8">
+            <div class="grid gap-8 sm:grid-cols-2">
+              <div>
+                <h3 class="u-channel text-ink-mute">Researchers train at</h3>
+                <p class="mt-4 leading-relaxed text-ink-soft">
+                  CentraleSupélec · École Normale Supérieure · École
+                  Polytechnique · Inria
+                </p>
+              </div>
+              <div>
+                <h3 class="u-channel text-ink-mute">
+                  Master's students come from
+                </h3>
+                <p class="mt-4 leading-relaxed text-ink-soft">
+                  MVA, Paris-Saclay · MMA, Université Paris Cité · EPITA · ESPCI
+                  Paris · Télécom Paris
+                </p>
+                <p class="mt-3 text-sm text-ink-mute">
+                  We take two to five M2 students a year.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2017–2022 record -->
+          <div class="mt-10">
+            <h3 class="u-channel text-ink-mute">The record, 2017 – 2022</h3>
+            <div class="u-grid-rule mt-3"></div>
+            <ul
+              class="mt-6 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4"
+            >
+              <li>
+                <p class="font-mono text-3xl font-medium sm:text-4xl">165</p>
+                <p class="mt-2 text-sm text-ink-soft">publications</p>
+              </li>
+              <li>
+                <p class="font-mono text-3xl font-medium sm:text-4xl">5</p>
+                <p class="mt-2 text-sm text-ink-soft">PhD students</p>
+              </li>
+              <li>
+                <p class="font-mono text-3xl font-medium sm:text-4xl">14</p>
+                <p class="mt-2 text-sm text-ink-soft">M2 students</p>
+              </li>
+              <li>
+                <p class="font-mono text-3xl font-medium sm:text-4xl">
+                  3<span class="text-ink-mute">+1</span>
+                </p>
+                <p class="mt-2 text-sm text-ink-soft">
+                  patents granted, one submitted
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Publications ───────────────────────── -->
+      <section id="publications" class="border-t border-rule bg-panel">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <div
+            class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3"
+          >
+            <p class="u-channel text-ink-mute">Publications</p>
+            <p class="u-channel text-ink-mute">
+              <span id="pub-updated"></span>
+            </p>
+          </div>
+
+          <h2
+            class="mt-6 max-w-3xl text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+          >
+            Latest from PubMed.
+          </h2>
+
+          <div id="pub-list" class="mt-12">
+            <p class="text-ink-mute">Loading publications…</p>
+          </div>
+
+          <noscript>
+            <p class="mt-4 leading-relaxed text-ink-soft">
+              The publication list is rendered in the browser.
+              <a
+                class="font-medium text-modelled underline underline-offset-4 hover:text-modelled-dark"
+                href="https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50"
+                >Read the feed on PubMed</a
+              >.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Partners ───────────────────────── -->
+      <section id="partners" class="border-t border-rule">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-ink-mute">Partners &amp; funding</p>
+
+          <!-- Parent unit, set apart from collaborators -->
+          <div class="mt-8 rounded-md border border-rule bg-panel p-6 sm:p-8">
+            <div class="flex flex-wrap items-center gap-x-10 gap-y-5">
+              <img
+                src="assets/img/mascot-logo.png"
+                alt="MASCOT — Cardiovascular Markers in Stressed Conditions"
+                width="427"
+                height="154"
+                loading="lazy"
+                class="h-12 w-auto object-contain"
+              />
+              <div class="max-w-md">
+                <p class="u-channel text-ink-mute">Parent unit</p>
+                <p class="mt-2 leading-relaxed text-ink-soft">
+                  We are Team 3 of <strong class="font-semibold text-ink">MASCOT</strong> —
+                  Cardiovascular MArkers in Stressed COndiTions, Inserm Unit
+                  U942.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Host institutions -->
+          <div class="mt-10">
+            <h3 class="u-channel text-ink-mute">Host institutions</h3>
+            <div class="u-grid-rule mt-3"></div>
+            <ul class="mt-6 flex flex-wrap items-center gap-x-12 gap-y-6">
+              <li>
+                <img
+                  src="assets/img/aphp.svg"
+                  alt="Assistance Publique – Hôpitaux de Paris"
+                  loading="lazy"
+                  class="h-11 w-auto object-contain"
+                />
+              </li>
+              <li>
+                <img
+                  src="assets/img/universite-paris-cite.jpg"
+                  alt="Université Paris Cité"
+                  width="1836"
+                  height="700"
+                  loading="lazy"
+                  class="h-11 w-auto object-contain"
+                />
+              </li>
+              <li>
+                <img
+                  src="assets/img/inserm.webp"
+                  alt="Inserm"
+                  width="700"
+                  height="288"
+                  loading="lazy"
+                  class="h-11 w-auto object-contain"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <!-- Collaborators -->
+          <div class="mt-12 grid gap-10 md:grid-cols-2">
+            <div>
+              <h3 class="u-channel text-ink-mute">Collaborators</h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-6 space-y-3 text-[0.98rem] text-ink-soft">
+                <li>
+                  <strong class="font-semibold text-ink">Inria</strong> — teams
+                  MIND and M3DISIM
+                </li>
+                <li>
+                  <strong class="font-semibold text-ink">Philips</strong> —
+                  industrial partnership on data capture and monitoring
+                </li>
+                <li>
+                  <strong class="font-semibold text-ink"
+                    >AP-HP Entrepôt de Données de Santé</strong
+                  >
+                </li>
+                <li>
+                  <strong class="font-semibold text-ink">CentraleSupélec</strong>
+                  and
+                  <strong class="font-semibold text-ink"
+                    >École Normale Supérieure</strong
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="u-channel text-ink-mute">Funding</h3>
+              <div class="u-grid-rule mt-3"></div>
+              <ul class="mt-6 space-y-2.5 text-[0.98rem]">
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">AI Chair</span>
+                  <span class="font-mono tabular-nums text-ink-mute">400 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">Radiometer partnership</span>
+                  <span class="font-mono tabular-nums text-ink-mute">350 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">Booster AP-HP</span>
+                  <span class="font-mono tabular-nums text-ink-mute">300 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">Philips partnership</span>
+                  <span class="font-mono tabular-nums text-ink-mute">200 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">Bernoulli fellowship</span>
+                  <span class="font-mono tabular-nums text-ink-mute">60 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">AP-HP foundation</span>
+                  <span class="font-mono tabular-nums text-ink-mute">50 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 border-b border-rule pb-2.5">
+                  <span class="text-ink-soft">FHU PROMICE</span>
+                  <span class="font-mono tabular-nums text-ink-mute">40 k€</span>
+                </li>
+                <li class="flex justify-between gap-4 pt-1">
+                  <span class="font-semibold">Total, as of 2023</span>
+                  <span class="font-mono font-medium tabular-nums text-modelled"
+                    >1.4 M€</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Contact ───────────────────────── -->
+      <section id="contact" class="border-t border-rule bg-panel">
+        <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p class="u-channel text-ink-mute">Contact</p>
+
+          <div class="mt-6 grid gap-x-14 gap-y-10 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <h2
+                class="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl"
+              >
+                Come and work on it.
+              </h2>
+              <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+                We supervise two to five M2 internships a year, and we take PhD
+                students from both sides of the duo. If you are a clinician with
+                a question the signal might answer, or a mathematician who wants
+                the data to be real, write to us.
+              </p>
+
+              <a
+                href="mailto:digitaltwins@letemple.org"
+                class="mt-8 inline-flex flex-col items-start gap-1 rounded-md bg-ink px-5 py-3 text-white transition-colors hover:bg-modelled-dark sm:flex-row sm:items-center sm:gap-3"
+              >
+                <span class="u-channel whitespace-nowrap text-white/60"
+                  >Email the team</span
+                >
+                <span class="font-mono text-sm">digitaltwins@letemple.org</span>
+              </a>
+            </div>
+
+            <div class="flex gap-6">
+              <img
+                src="assets/img/lariboisiere.jpg"
+                alt="Engraving of the courtyard of Hôpital Lariboisière"
+                width="250"
+                height="125"
+                loading="lazy"
+                class="hidden h-auto w-[150px] shrink-0 self-start rounded-sm border border-rule sm:block"
+              />
+              <div>
+                <h3 class="u-channel text-ink-mute">Where we are</h3>
+                <div class="u-grid-rule mt-3"></div>
+                <address class="mt-5 leading-relaxed text-ink-soft not-italic">
+                  Hôpital Lariboisière<br />
+                  AP-HP Nord — Université Paris Cité<br />
+                  Paris, France
+                </address>
+                <p
+                  class="mt-4 rounded-sm border border-dashed border-rule bg-white px-3 py-2 text-sm text-ink-mute"
+                >
+                  Placeholder — the street address still needs filling in.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ───────────────────────── Footer ───────────────────────── -->
+    <footer class="border-t border-rule bg-ink text-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="grid gap-10 md:grid-cols-[2fr_1fr]">
+          <div>
+            <p class="text-xl font-semibold tracking-tight">
+              Digital twins for perioperative medicine
+            </p>
+            <p class="mt-3 leading-relaxed text-white/55">
+              Team 3 of MASCOT — Cardiovascular MArkers in Stressed COndiTions,
+              Inserm Unit U942.<br />
+              AP-HP · Université Paris Cité · Inserm.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="u-channel text-white/40">Elsewhere</h2>
+            <ul class="mt-4 space-y-2.5">
+              <li>
+                <a
+                  href="mailto:digitaltwins@letemple.org"
+                  class="text-white/75 underline underline-offset-4 transition-colors hover:text-white"
+                  >digitaltwins@letemple.org</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://pubmed.ncbi.nlm.nih.gov/rss/search/1nskJOntD_Iqu119bSgbh0QRPabiXWpXmYRKzaeeHlf1wRCQzp/?limit=50"
+                  class="text-white/75 underline underline-offset-4 transition-colors hover:text-white"
+                  >Publications feed on PubMed</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6"
+        >
+          <p class="u-channel text-white/35">© 2026 Inserm U942 · Team 3</p>
+          <p class="u-channel text-white/35">
+            <span class="text-trace-measured">Measured</span> ·
+            <span class="text-trace-modelled">Modelled</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/waveform.js" defer></script>
+    <script src="assets/js/publications.js" defer></script>
+  </body>
+</html>

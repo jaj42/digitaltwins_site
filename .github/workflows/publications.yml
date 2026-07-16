@@ -1,0 +1,42 @@
+name: Refresh publications
+
+on:
+  schedule:
+    # 04:17 UTC — off the hour, so we are not queued behind everyone else's
+    # midnight cron.
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publications
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The script is stdlib-only, so there is nothing to install.
+      # It exits non-zero on a fetch or parse failure, which fails the job
+      # rather than committing an empty list.
+      - run: python3 scripts/fetch_pubmed.py
+
+      - name: Commit if the feed changed
+        run: |
+          if git diff --quiet -- data/publications.json; then
+            echo "No new publications."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/publications.json
+          git commit -m "Refresh publications from PubMed"
+          git push

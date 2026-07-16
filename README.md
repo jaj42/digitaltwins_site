@@ -13,13 +13,16 @@ A single scrolling page with anchor navigation, hosted on GitHub Pages. No serve
 ## Layout
 
 ```
-index.html              the whole site
-src/input.css           Tailwind entry point + brand tokens (@theme)
-assets/css/site.css     built stylesheet — committed, do not edit by hand
-assets/img/             logos, marks and illustrations
-assets/js/              client-side rendering of the publication list
-data/publications.json  generated from the team's PubMed RSS feed
-scripts/fetch_pubmed.py RSS -> data/publications.json
+index.html                 the whole site
+src/input.css              Tailwind entry point + design tokens (@theme)
+src/fonts.css              generated @font-face rules for the self-hosted fonts
+assets/css/site.css        built stylesheet — committed, do not edit by hand
+assets/fonts/              self-hosted woff2 (Source Serif 4, IBM Plex Mono)
+assets/img/                logos, marks and illustrations
+assets/js/waveform.js      the hero trace
+assets/js/publications.js  client-side rendering of the publication list
+data/publications.json     generated from the team's PubMed RSS feed
+scripts/fetch_pubmed.py    RSS -> data/publications.json
 ```
 
 ## Working on it
@@ -35,10 +38,30 @@ python3 -m http.server   # then open http://localhost:8000
 from a plain `file://` open and from a branch-served Pages setup. Rerun `npm run build` and
 commit the result whenever `index.html` or `src/input.css` changes.
 
-Brand colours are inherited from the parent unit's logo (the team has none of its own), sampled
-from it and defined once in `src/input.css` under `@theme`
-(`--color-brand-purple`, `--color-brand-red`), which makes them available as Tailwind
-utilities such as `text-brand-purple`.
+## Design
+
+One rule holds the page together, and it is worth knowing before editing:
+
+> **Red is measured. Purple is modelled.**
+
+Red marks the patient — the signal, the observed fact, the burden statistics. Purple marks the
+team's own work — the twin, the method, the patents, the targets. The team's science is one
+picture repeated (a measured trace and a simulated one, converging), so the site encodes that
+distinction in colour and keeps to it everywhere, down to the medical/technology split in the
+team roster. Both hexes are sampled from the parent unit's logo — the red heart and the purple
+wordmark — since the team has no palette of its own. Tokens live once in `src/input.css` under
+`@theme`, as `--color-measured` and `--color-modelled` (so, `text-modelled`, `bg-measured-light`
+and friends).
+
+The hero canvas (`assets/js/waveform.js`) is that picture, live: a schematic arterial trace with
+a model-driven twin re-fitting onto it. It is **not patient data**, and the panel says so —
+keep that label. It honours `prefers-reduced-motion` by rendering a settled frame instead.
+
+Type is Source Serif 4 (display and body) with IBM Plex Mono (labels, data, nav) — the journal
+register and the instrument register, which is the medical/technical duo the team is built on.
+Both are self-hosted in `assets/fonts/`: no CDN, no network dependency, no request to Google
+from a visitor's browser. To change or re-subset them, refetch the woff2 files and regenerate
+`src/fonts.css`.
 
 ## Source material
 

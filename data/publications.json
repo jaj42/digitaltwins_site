@@ -1,0 +1,687 @@
+{
+  "updated": "2026-07-16",
+  "items": [
+    {
+      "title": "Real-time peri-operative data integration and clinical decision support: an open interoperable platform for patient data",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42298974/",
+      "authors": [
+        "Jona Joachim",
+        "Thibaut Chamoux",
+        "Jade Perdereau",
+        "Valentin Iovène",
+        "Thomas Moreau",
+        "Jérôme Cartailler",
+        "Fabrice Vallée"
+      ],
+      "journal": "Eur J Anaesthesiol",
+      "published": "2026 Jun 11",
+      "date": "2026-06-16",
+      "doi": "10.1097/EJA.0000000000002422",
+      "pmid": "42298974"
+    },
+    {
+      "title": "Dexmedetomidine versus propofol for sedation in awake neurosurgery: respiratory and hemodynamic safety",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42234234/",
+      "authors": [
+        "Charlotte Levé",
+        "Fabrice Vallée",
+        "Sylvie Aubrun",
+        "Séverine Levavasseur",
+        "Mickael Rajaona",
+        "Kanssaa El Ayeb",
+        "Emmanuel Mandonnet",
+        "Cyril Touchard",
+        "Joaquim Mateo",
+        "Jérôme Cartailler",
+        "Jona Joachim"
+      ],
+      "journal": "Acta Neurochir (Wien)",
+      "published": "2026 Jun 3",
+      "date": "2026-06-03",
+      "doi": "10.1007/s00701-026-06943-y",
+      "pmid": "42234234"
+    },
+    {
+      "title": "EEG monitoring in the operating room: current uses and perspectives - a narrative review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42219084/",
+      "authors": [
+        "Gaël de Rocquigny",
+        "Audrey Jarrassier",
+        "Fabrice Vallée",
+        "Jérôme Cartailler",
+        "Kanssaa El Ayeb",
+        "Cyril Touchard"
+      ],
+      "journal": "Anaesth Crit Care Pain Med",
+      "published": "2026 May 30",
+      "date": "2026-05-31",
+      "doi": "10.1016/j.accpm.2026.101861",
+      "pmid": "42219084"
+    },
+    {
+      "title": "Alpha-delta ratio as a robust marker of the impact of cerebral blood flow on EEG signal during general anesthesia",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41038341/",
+      "authors": [
+        "Elsa Manquat",
+        "Fabrice Vallée",
+        "Etienne Gayat",
+        "David Sabbagh",
+        "Melvin Berto-Strouc",
+        "Jona Joachim",
+        "Jérôme Cartailler",
+        "Alexandre Gramfort"
+      ],
+      "journal": "Anaesth Crit Care Pain Med",
+      "published": "2026 Apr",
+      "date": "2025-10-02",
+      "doi": "10.1016/j.accpm.2025.101636",
+      "pmid": "41038341"
+    },
+    {
+      "title": "Harnessing operating room signals to estimate mean arterial pressure with AnesthNet",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41028102/",
+      "authors": [
+        "Jade Perdereau",
+        "Jona Joachim",
+        "Fabrice Vallée",
+        "Jérôme Cartailler",
+        "Thomas Moreau"
+      ],
+      "journal": "Sci Rep",
+      "published": "2025 Sep 30",
+      "date": "2025-09-30",
+      "doi": "10.1038/s41598-025-12341-8",
+      "pmid": "41028102"
+    },
+    {
+      "title": "Using intraoperative physiological data to predict postoperative cognitive decline and cardiovascular events: results from a 30-month prospective study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40348679/",
+      "authors": [
+        "Kanssaa El Ayeb",
+        "Cyril Touchard",
+        "Valentin Iovene",
+        "Karim Guessous",
+        "Raphaelle Galy",
+        "Charlotte Leve",
+        "Joaquim Mateo",
+        "Alex Hong",
+        "Jona Joachim",
+        "Jérôme Cartailler",
+        "Fabrice Vallée"
+      ],
+      "journal": "Br J Anaesth",
+      "published": "2025 Jul",
+      "date": "2025-05-10",
+      "doi": "10.1016/j.bja.2025.03.036",
+      "pmid": "40348679"
+    },
+    {
+      "title": "Continuous measurement of carotid-femoral pulse wave velocity (PWV cf. ) during general anaesthesia using Doppler: a preliminary study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40080310/",
+      "authors": [
+        "Théophile Harlé",
+        "Jona Joachim",
+        "Pierre Boutouyrie",
+        "Joaquim Mateo",
+        "Jade Perdereau",
+        "Alexandre Mebazaa",
+        "Jérome Cartailler",
+        "Fabrice Vallée"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2025 Jun",
+      "date": "2025-03-13",
+      "doi": "10.1007/s10877-024-01256-w",
+      "pmid": "40080310"
+    },
+    {
+      "title": "Blood Pressure Estimation Using Explainable Deep-Learning Models Based on Photoplethysmography",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39680992/",
+      "authors": [
+        "Jade Perdereau",
+        "Thibaut Chamoux",
+        "Etienne Gayat",
+        "Arthur Le Gall",
+        "Fabrice Vallée",
+        "Jérôme Cartailler",
+        "Jona Joachim"
+      ],
+      "journal": "Anesth Analg",
+      "published": "2025 Jan 1",
+      "date": "2024-12-16",
+      "doi": "10.1213/ANE.0000000000007295",
+      "pmid": "39680992"
+    },
+    {
+      "title": "Design of a pharmacokinetic/pharmacodynamic model for administration of low dose peripheral norepinephrine during general anaesthesia",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39039779/",
+      "authors": [
+        "Jona Joachim",
+        "Jérôme Cartailler",
+        "Fabrice Vallee",
+        "Thomas Lefevre",
+        "Jacques Callebert",
+        "Etienne Gayat",
+        "Marc Lavielle"
+      ],
+      "journal": "Br J Clin Pharmacol",
+      "published": "2024 Nov",
+      "date": "2024-07-23",
+      "doi": "10.1111/bcp.16180",
+      "pmid": "39039779"
+    },
+    {
+      "title": "Association of velocity-pressure loop-derived values recorded during neurosurgical procedures with postoperative organ failure biomarkers: a retrospective single-center study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38997007/",
+      "authors": [
+        "Alex Hong",
+        "Sonia Boukthir",
+        "Charlotte Levé",
+        "Jona Joachim",
+        "Joaquim Mateo",
+        "Arthur Le Gall",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Jérôme Cartailler",
+        "Fabrice Vallée"
+      ],
+      "journal": "Anaesth Crit Care Pain Med",
+      "published": "2024 Oct",
+      "date": "2024-07-12",
+      "doi": "10.1016/j.accpm.2024.101405",
+      "pmid": "38997007"
+    },
+    {
+      "title": "Micro- and macrocirculatory effects of norepinephrine on anaesthesia-induced hypotension: a prospective preliminary study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37974084/",
+      "authors": [
+        "Manuel Kindermans",
+        "Jona Joachim",
+        "Elsa Manquat",
+        "Charlotte Levé",
+        "Alex Hong",
+        "Joachim Mateo",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Daniel De Backer",
+        "Fabrice Vallée"
+      ],
+      "journal": "BMC Anesthesiol",
+      "published": "2023 Nov 16",
+      "date": "2023-11-17",
+      "doi": "10.1186/s12871-023-02342-3",
+      "pmid": "37974084"
+    },
+    {
+      "title": "Repurposing electroencephalogram monitoring of general anaesthesia for building biomarkers of brain ageing: an exploratory study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37638087/",
+      "authors": [
+        "David Sabbagh",
+        "Jérôme Cartailler",
+        "Cyril Touchard",
+        "Jona Joachim",
+        "Alexandre Mebazaa",
+        "Fabrice Vallée",
+        "Étienne Gayat",
+        "Alexandre Gramfort",
+        "Denis A Engemann"
+      ],
+      "journal": "BJA Open",
+      "published": "2023 Jun 16",
+      "date": "2023-08-28",
+      "doi": "10.1016/j.bjao.2023.100145",
+      "pmid": "37638087"
+    },
+    {
+      "title": "Risk of overestimating loss of cerebral autoregulation-author's reply",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37588790/",
+      "authors": [
+        "Elsa Manquat",
+        "Fabrice Vallée",
+        "Jerome Cartailler"
+      ],
+      "journal": "BJA Open",
+      "published": "2022 Oct 1",
+      "date": "2023-08-17",
+      "doi": "10.1016/j.bjao.2022.100094",
+      "pmid": "37588790"
+    },
+    {
+      "title": "Impact of impaired cerebral blood flow autoregulation on electroencephalogram signals in adults undergoing propofol anaesthesia: a pilot study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37588691/",
+      "authors": [
+        "Elsa Manquat",
+        "Hugues Ravaux",
+        "Manuel Kindermans",
+        "Jona Joachim",
+        "José Serrano",
+        "Cyril Touchard",
+        "Joaquim Mateo",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallée",
+        "Jérôme Cartailler"
+      ],
+      "journal": "BJA Open",
+      "published": "2022 Mar 2",
+      "date": "2023-08-17",
+      "doi": "10.1016/j.bjao.2022.100004",
+      "pmid": "37588691"
+    },
+    {
+      "title": "Trending Ability of End-Tidal Capnography Monitoring During Mechanical Ventilation to Track Changes in Arterial Partial Pressure of Carbon Dioxide in Critically Ill Patients With Acute Brain Injury: A Monocenter Retrospective Study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37319022/",
+      "authors": [
+        "Adrien Coëffic",
+        "Jona Joachim",
+        "Elsa Manquat",
+        "Élodie Felliot",
+        "Fabrice Vallée",
+        "Alexandre Mebazaa",
+        "Étienne Gayat",
+        "Benjamin Glenn Chousterman",
+        "Romain Barthélémy"
+      ],
+      "journal": "Anesth Analg",
+      "published": "2024 Mar 1",
+      "date": "2023-06-15",
+      "doi": "10.1213/ANE.0000000000006553",
+      "pmid": "37319022"
+    },
+    {
+      "title": "A New Dynamic Slow-Flow Esophageal Balloon Pressure-Volume Curve Calibration Method to Assess Transpulmonary Pressure Monitoring",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37253611/",
+      "authors": [
+        "Arnaud Mari",
+        "Jérôme Cartailler",
+        "Nicolas Barbarot",
+        "François Legay",
+        "Arthur Tinelli",
+        "Jona Joachim",
+        "Fabrice Vallée"
+      ],
+      "journal": "Respir Care",
+      "published": "2023 Nov",
+      "date": "2023-05-30",
+      "doi": "10.4187/respcare.10718",
+      "pmid": "37253611"
+    },
+    {
+      "title": "Association of sleep and anaesthesia EEG biomarkers with preoperative MoCA score: A pilot study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37096645/",
+      "authors": [
+        "Cyril Touchard",
+        "Pauline Guimard",
+        "Karim Guessous",
+        "Oriane Saint Aubin",
+        "Charlotte Levé",
+        "Jona Joachim",
+        "Kenza Elayeb",
+        "Alexandre Mebazaa",
+        "Étienne Gayat",
+        "Joaquim Mateo",
+        "Fabrice Vallée",
+        "Jérôme Cartailler"
+      ],
+      "journal": "Acta Anaesthesiol Scand",
+      "published": "2023 Aug",
+      "date": "2023-04-25",
+      "doi": "10.1111/aas.14251",
+      "pmid": "37096645"
+    },
+    {
+      "title": "Intraoperative Electroencephalography Alpha-Band Power Is a Better Proxy for Preoperative Low MoCA Under Propofol Compared With Sevoflurane",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37014984/",
+      "authors": [
+        "K Guessous",
+        "C Touchard",
+        "B Glezerson",
+        "C Levé",
+        "D Sabbagh",
+        "A Mebazaa",
+        "E Gayat",
+        "C Paquet",
+        "F Vallée",
+        "J Cartailler"
+      ],
+      "journal": "Anesth Analg",
+      "published": "2023 Nov 1",
+      "date": "2023-04-04",
+      "doi": "10.1213/ANE.0000000000006422",
+      "pmid": "37014984"
+    },
+    {
+      "title": "The ICEBERG: A score and visual representation to track the severity of traumatic brain injury: Design principles and preliminary results",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35001023/",
+      "authors": [
+        "Fabrice Vallée",
+        "Hélène Nougue",
+        "Jérome Cartailler",
+        "Paul Robert Koundé",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Philippe Azouvi",
+        "Joaquim Mateo"
+      ],
+      "journal": "J Trauma Acute Care Surg",
+      "published": "2022 Aug 1",
+      "date": "2022-01-10",
+      "doi": "10.1097/TA.0000000000003515",
+      "pmid": "35001023"
+    },
+    {
+      "title": "Distribution of symptomatic cerebral vasospasm following subarachnoid hemorrhage assessed using cone-beam CT angiography",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34740985/",
+      "authors": [
+        "Davide Simonato",
+        "Robin Jacob Borchert",
+        "Fabrice Vallee",
+        "Jona Joachim",
+        "Vittorio Civelli",
+        "Luca Cancian",
+        "Emmanuel Houdart",
+        "Marc-Antoine Labeyrie"
+      ],
+      "journal": "J Neurointerv Surg",
+      "published": "2022 Nov",
+      "date": "2021-11-06",
+      "doi": "10.1136/neurintsurg-2021-018080",
+      "pmid": "34740985"
+    },
+    {
+      "title": "Brain fragility among middle-aged and elderly patients from electroencephalogram during induction of anaesthesia",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34735402/",
+      "authors": [
+        "Jerome Cartailler",
+        "Cyril Touchard",
+        "Pierre Parutto",
+        "Etienne Gayat",
+        "Claire Paquet",
+        "Fabrice Vallée"
+      ],
+      "journal": "Eur J Anaesthesiol",
+      "published": "2021 Dec 1",
+      "date": "2021-11-04",
+      "doi": "10.1097/EJA.0000000000001524",
+      "pmid": "34735402"
+    },
+    {
+      "title": "Perfusion index: Physical principles, physiological meanings and clinical implications in anaesthesia and critical care",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34687923/",
+      "authors": [
+        "Maxime Coutrot",
+        "Emmanuel Dudoignon",
+        "Jona Joachim",
+        "Etienne Gayat",
+        "Fabrice Vallée",
+        "François Dépret"
+      ],
+      "journal": "Anaesth Crit Care Pain Med",
+      "published": "2021 Dec",
+      "date": "2021-10-23",
+      "doi": "10.1016/j.accpm.2021.100964",
+      "pmid": "34687923"
+    },
+    {
+      "title": "Velocity-pressure loops can estimate intrinsic and pharmacologically induced changes in cardiac afterload during non-cardiac surgery. An observational study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33755846/",
+      "authors": [
+        "Arthur Le Gall",
+        "Étienne Gayat",
+        "Jona Joachim",
+        "Samuel Cohen",
+        "Alex Hong",
+        "Joaquim Matéo",
+        "Cédric Buxin",
+        "Sandrine Millasseau",
+        "Alexandre Mebazaa",
+        "Fabrice Vallée"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2022 Apr",
+      "date": "2021-03-23",
+      "doi": "10.1007/s10877-021-00686-0",
+      "pmid": "33755846"
+    },
+    {
+      "title": "Estimation of cardiac output variations induced by hemodynamic interventions using multi-beat analysis of arterial waveform: a comparative off-line study with transesophageal Doppler method during non-cardiac surgery",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33687601/",
+      "authors": [
+        "Arthur Le Gall",
+        "Fabrice Vallée",
+        "Jona Joachim",
+        "Alex Hong",
+        "Joaquim Matéo",
+        "Alexandre Mebazaa",
+        "Etienne Gayat"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2022 Apr",
+      "date": "2021-03-09",
+      "doi": "10.1007/s10877-021-00679-z",
+      "pmid": "33687601"
+    },
+    {
+      "title": "Propofol Requirement and EEG Alpha Band Power During General Anesthesia Provide Complementary Views on Preoperative Cognitive Decline",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33328973/",
+      "authors": [
+        "Cyril Touchard",
+        "Jérôme Cartailler",
+        "Charlotte Levé",
+        "José Serrano",
+        "David Sabbagh",
+        "Elsa Manquat",
+        "Jona Joachim",
+        "Joaquim Mateo",
+        "Etienne Gayat",
+        "Denis Engemann",
+        "Fabrice Vallée"
+      ],
+      "journal": "Front Aging Neurosci",
+      "published": "2020 Nov 27",
+      "date": "2020-12-17",
+      "doi": "10.3389/fnagi.2020.593320",
+      "pmid": "33328973"
+    },
+    {
+      "title": "Influence of noninvasive central blood pressure devices for afterload monitoring with aortic velocity-pressure Loop in anesthetized patients",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32433117/",
+      "authors": [
+        "Charlotte Leve",
+        "Alex Hong",
+        "Sandrine Millasseau",
+        "Jona Joachim",
+        "Cyril Touchard",
+        "Joaquim Mateo",
+        "José Serrano",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallee"
+      ],
+      "journal": "Blood Press Monit",
+      "published": "2020 Aug",
+      "date": "2020-05-21",
+      "doi": "10.1097/MBP.0000000000000445",
+      "pmid": "32433117"
+    },
+    {
+      "title": "Real-time estimation of mean arterial blood pressure based on photoplethysmography dicrotic notch and perfusion index. A pilot study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32078111/",
+      "authors": [
+        "Jona Joachim",
+        "Maxime Coutrot",
+        "Sandrine Millasseau",
+        "Joaquim Matéo",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallée"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2021 Apr",
+      "date": "2020-02-21",
+      "doi": "10.1007/s10877-020-00486-y",
+      "pmid": "32078111"
+    },
+    {
+      "title": "Corrigendum to \"EEG power spectral density under Propofol and its association with burst suppression, a marker of cerebral fragility\" [Clin. Neurophysiol. 130 (2019) 1311-1319]",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31902717/",
+      "authors": [
+        "Cyril Touchard",
+        "Jérôme Cartailler",
+        "Charlotte Levé",
+        "Pierre Parutto",
+        "Cédric Buxin",
+        "Lucas Garnot",
+        "Joaquim Matéo",
+        "Nathalie Kubis",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallée"
+      ],
+      "journal": "Clin Neurophysiol",
+      "published": "2020 Mar",
+      "date": "2020-01-07",
+      "doi": "10.1016/j.clinph.2019.12.001",
+      "pmid": "31902717"
+    },
+    {
+      "title": "Using velocity-pressure loops in the operating room: a new approach of arterial mechanics for cardiac afterload monitoring under general anesthesia",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31674813/",
+      "authors": [
+        "A Hong",
+        "J Joachim",
+        "C Buxin",
+        "C Levé",
+        "A Le Gall",
+        "S Millasseau",
+        "J Mateo",
+        "V Civelli",
+        "J Serrano",
+        "A Mebazaa",
+        "E Gayat",
+        "F Vallée"
+      ],
+      "journal": "Am J Physiol Heart Circ Physiol",
+      "published": "2019 Dec 1",
+      "date": "2019-11-02",
+      "doi": "10.1152/ajpheart.00362.2019",
+      "pmid": "31674813"
+    },
+    {
+      "title": "Alpha rhythm collapse predicts iso-electric suppressions during anesthesia",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31508502/",
+      "authors": [
+        "Jérôme Cartailler",
+        "Pierre Parutto",
+        "Cyril Touchard",
+        "Fabrice Vallée",
+        "David Holcman"
+      ],
+      "journal": "Commun Biol",
+      "published": "2019 Sep 2",
+      "date": "2019-09-12",
+      "doi": "10.1038/s42003-019-0575-3",
+      "pmid": "31508502"
+    },
+    {
+      "title": "EEG power spectral density under Propofol and its association with burst suppression, a marker of cerebral fragility",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31185362/",
+      "authors": [
+        "Cyril Touchard",
+        "Jérôme Cartailler",
+        "Charlotte Levé",
+        "Pierre Parutto",
+        "Cédric Buxin",
+        "Lucas Garnot",
+        "Joaquim Matéo",
+        "Nathalie Kubis",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallée"
+      ],
+      "journal": "Clin Neurophysiol",
+      "published": "2019 Aug",
+      "date": "2019-06-12",
+      "doi": "10.1016/j.clinph.2019.05.014",
+      "pmid": "31185362"
+    },
+    {
+      "title": "Noninvasive continuous detection of arterial hypotension during induction of anaesthesia using a photoplethysmographic signal: proof of concept",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30916032/",
+      "authors": [
+        "Maxime Coutrot",
+        "Jona Joachim",
+        "François Dépret",
+        "Sandrine Millasseau",
+        "Hélène Nougué",
+        "Joaquim Matéo",
+        "Alexandre Mebazaa",
+        "Etienne Gayat",
+        "Fabrice Vallée"
+      ],
+      "journal": "Br J Anaesth",
+      "published": "2019 May",
+      "date": "2019-03-28",
+      "doi": "10.1016/j.bja.2019.01.037",
+      "pmid": "30916032"
+    },
+    {
+      "title": "Velocity-pressure loops for continuous assessment of ventricular afterload: influence of pressure measurement site",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29188414/",
+      "authors": [
+        "Jona Joachim",
+        "Fabrice Vallée",
+        "Arthur Le Gall",
+        "Joaquim Matéo",
+        "Stéphanie Lenck",
+        "Sandrine Millasseau",
+        "Emmanuel Houdart",
+        "Alexandre Mebazaa",
+        "Etienne Gayat"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2018 Oct",
+      "date": "2017-12-01",
+      "doi": "10.1007/s10877-017-0082-3",
+      "pmid": "29188414"
+    },
+    {
+      "title": "Norepinephrine reduces arterial compliance less than phenylephrine when treating general anesthesia-induced arterial hypotension",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28543052/",
+      "authors": [
+        "F Vallée",
+        "O Passouant",
+        "A Le Gall",
+        "J Joachim",
+        "J Mateo",
+        "A Mebazaa",
+        "E Gayat"
+      ],
+      "journal": "Acta Anaesthesiol Scand",
+      "published": "2017 Jul",
+      "date": "2017-05-26",
+      "doi": "10.1111/aas.12905",
+      "pmid": "28543052"
+    },
+    {
+      "title": "Beat-by-beat assessment of cardiac afterload using descending aortic velocity-pressure loop during general anesthesia: a pilot study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28108832/",
+      "authors": [
+        "Fabrice Vallée",
+        "Arthur Le Gall",
+        "Jona Joachim",
+        "Olivier Passouant",
+        "Joaquim Matéo",
+        "Arnaud Mari",
+        "Sandrine Millasseau",
+        "Alexandre Mebazaa",
+        "Etienne Gayat"
+      ],
+      "journal": "J Clin Monit Comput",
+      "published": "2018 Feb",
+      "date": "2017-01-22",
+      "doi": "10.1007/s10877-017-9982-5",
+      "pmid": "28108832"
+    }
+  ]
+}

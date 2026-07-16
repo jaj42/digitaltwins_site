@@ -1,0 +1,58 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Let a running deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Rebuild rather than trusting the committed assets/css/site.css, so a
+      # stale commit of it can never ship.
+      - run: npm run build
+
+      # Stage only what the site serves. Uploading the workspace wholesale
+      # would publish node_modules, the Tailwind source, the fetch script and
+      # plan.md — the last of which holds internal notes.
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          cp index.html .nojekyll _site/
+          cp -r assets data _site/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
