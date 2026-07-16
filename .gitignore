@@ -1,0 +1,6 @@
+# Source material — content input only, never published
+resources/
+
+node_modules/
+*.swp
+.DS_Store
