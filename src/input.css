@@ -6,36 +6,24 @@
 @source "../assets/js";
 
 /* ---------------------------------------------------------------------------
-   Design system — "measured vs modelled"
+   Design system
 
-   The team's work is one picture repeated: a measured signal and a simulated
-   one, overlaid, converging. Every axis in the SAB deck is that picture (MAP
-   gold-standard vs computed; PV-loop measurement vs simulation; TAD fragile vs
-   non-fragile). The page encodes it as a colour rule that holds everywhere:
+   The page is set in ink on white: nothing in the content is colour-coded, so
+   colour never carries meaning a reader has to decode. Structure comes from
+   type, weight and rules instead.
 
-       RED    = measured — the patient, the signal, the observed fact
-       PURPLE = modelled — the twin, the method, the thing the team built
-
-   Both hexes are sampled from the parent unit's logo (MASCOT / Inserm U942):
-   the red heart and the purple wordmark. The team has no palette of its own, so
-   it inherits the unit's — and the inheritance happens to line up with the
-   distinction the team's science actually makes. Red is also the ABP trace
-   colour on every OR monitor, so it reads correctly to a clinician.
+   One accent, sampled from the parent unit's wordmark (MASCOT / Inserm U942).
+   The team has no palette of its own, so it inherits the unit's. It marks
+   interaction — links, hover, focus, selection — and nothing else.
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Measured — the patient */
-  --color-measured: #e03127;
-  --color-measured-dark: #b0231b;
-  --color-measured-light: #fdeceb;
-
-  /* Modelled — the twin */
-  --color-modelled: #93348a;
-  --color-modelled-dark: #6d2566;
-  --color-modelled-light: #f4e9f3;
+  /* Accent — interaction only */
+  --color-accent: #93348a;
+  --color-accent-dark: #6d2566;
 
   /* Paper — near-black carries a purple cast so the neutrals belong to the
-     same family as the accents rather than reading as stock slate. */
+     same family as the accent rather than reading as stock slate. */
   --color-ink: #16121a;
   --color-ink-soft: #4a4351;
   /* Dark enough to clear 4.5:1 on --color-panel, not just on white — the mono
@@ -43,11 +31,6 @@
   --color-ink-mute: #726a79;
   --color-rule: #e6e1e8;
   --color-panel: #f8f6f9;
-
-  /* Lifted variants of the two brand hexes, for the dark footer — on dark the
-     brand hexes themselves fail contrast. */
-  --color-trace-measured: #ff5347;
-  --color-trace-modelled: #cb79c2;
 
   --font-serif: "Source Serif 4", Charter, "Bitstream Charter", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -79,12 +62,12 @@
   }
 
   ::selection {
-    background: var(--color-modelled);
+    background: var(--color-accent);
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-modelled);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
   }

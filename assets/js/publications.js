@@ -33,7 +33,7 @@
     );
     var a = el(
       "a",
-      "font-medium text-modelled underline underline-offset-4 hover:text-modelled-dark",
+      "font-medium text-accent underline underline-offset-4 hover:text-accent-dark",
       "Read the feed on PubMed"
     );
     a.href = FEED;
@@ -73,14 +73,14 @@
        the two disagree on anything published ahead of print. */
     var head = el("div", "flex flex-wrap items-baseline gap-x-4 gap-y-1");
     if (item.journal) {
-      head.appendChild(el("p", "u-channel text-modelled", item.journal));
+      head.appendChild(el("p", "u-channel text-ink-mute", item.journal));
     }
     var when = item.published || prettyDate(item.date);
     if (when) head.appendChild(el("p", "u-channel text-ink-mute", when));
     li.appendChild(head);
 
     var h = el("h3", "mt-2.5 text-lg leading-snug font-semibold tracking-tight");
-    var a = el("a", "transition-colors hover:text-modelled", item.title);
+    var a = el("a", "transition-colors hover:text-accent", item.title);
     a.href = item.url;
     a.rel = "noopener";
     h.appendChild(a);
@@ -95,7 +95,7 @@
       var doi = el("p", "mt-2");
       var dl = el(
         "a",
-        "font-mono text-xs text-ink-mute underline underline-offset-4 hover:text-modelled",
+        "font-mono text-xs text-ink-mute underline underline-offset-4 hover:text-accent",
         "doi:" + item.doi
       );
       dl.href = "https://doi.org/" + item.doi;
@@ -128,7 +128,7 @@
 
       var btn = el(
         "button",
-        "u-channel mt-8 rounded-md border border-rule bg-white px-5 py-3 text-ink-soft transition-colors hover:border-modelled hover:text-modelled",
+        "u-channel mt-8 rounded-md border border-rule bg-white px-5 py-3 text-ink-soft transition-colors hover:border-accent hover:text-accent",
         "Show all " + items.length + " publications"
       );
       btn.type = "button";
@@ -142,7 +142,7 @@
     var more = el("p", "mt-8");
     var ml = el(
       "a",
-      "u-channel text-ink-mute underline underline-offset-4 hover:text-modelled",
+      "u-channel text-ink-mute underline underline-offset-4 hover:text-accent",
       "Full record on PubMed"
     );
     ml.href = FEED;
